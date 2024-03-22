@@ -30,6 +30,7 @@ public class KeyController extends KeyAdapter {
 			case KeyEvent.VK_UP:
 			case '-':
 				presentation.prevSlide();
+//				CopyCommand.execute();
 				break;
 			case 'q':
 			case 'Q':
