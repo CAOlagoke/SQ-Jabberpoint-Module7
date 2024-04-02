@@ -2,7 +2,10 @@ name: Publish release
 
 on:
   pull_request:
-    branches: ["main"]
+    types:
+      - closed
+    branches:
+      - main
 
 jobs:
   if_merged:
