@@ -1,0 +1,7 @@
+codecov:
+  branch: test
+
+comment:
+  layout: "condensed_header, diff, files"
+  behavior: default
+  hide_project_coverage: false
