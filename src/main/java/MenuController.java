@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
@@ -21,10 +20,6 @@ public class MenuController extends MenuBar
 
     private static final long serialVersionUID = 227L;
 
-    protected static final String ABOUT = "About";
-    protected static final String HELP = "Help";
-    protected static final String PAGENR = "Page number?";
-
     protected static final String TESTFILE = "test.xml";
     protected static final String SAVEFILE = "dump.xml";
 
@@ -43,7 +38,7 @@ public class MenuController extends MenuBar
         fileMenu.add(this.createMenuItem("New", e -> this.newFile(), 'N'));
         fileMenu.add(this.createMenuItem("Save", e -> this.saveFile(), 'S'));
         fileMenu.addSeparator();
-        fileMenu.add(this.createMenuItem("Exit", e -> this.exit(), 'X'));
+        fileMenu.add(this.createMenuItem("Exit", e -> System.exit(0), 'X'));
         this.add(fileMenu);
 
         Menu viewMenu = new Menu("View");
@@ -51,15 +46,9 @@ public class MenuController extends MenuBar
         viewMenu.add(this.createMenuItem("Previous slide", e -> this.prevSlide()));
         viewMenu.add(this.createMenuItem("Go to...", e -> this.goToSlide(), 'G'));
         this.add(viewMenu);
-        Menu helpMenu = new Menu(HELP);
-        helpMenu.add(menuItem = this.mkMenuItem(ABOUT));
-        menuItem.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent actionEvent)
-            {
-                AboutBox.show(MenuController.this.parent);
-            }
-        });
+
+        Menu helpMenu = new Menu("Help");
+        helpMenu.add(this.createMenuItem("About", e -> AboutBox.show(MenuController.this.parent), 'A'));
         this.setHelpMenu(helpMenu);        // needed for portability (Motif, etc.).
     }
 
@@ -99,11 +88,6 @@ public class MenuController extends MenuBar
         }
     }
 
-    private void exit()
-    {
-        MenuController.this.presentation.exit(0);
-    }
-
     // slide operations
     private void nextSlide()
     {
@@ -117,17 +101,12 @@ public class MenuController extends MenuBar
 
     private void goToSlide()
     {
-        String pageNumberStr = JOptionPane.showInputDialog(PAGENR);
+        String pageNumberStr = JOptionPane.showInputDialog("Page number?");
         int pageNumber = Integer.parseInt(pageNumberStr);
         MenuController.this.presentation.setSlideNumber(pageNumber - 1);
     }
 
     // create a menu item
-    public MenuItem mkMenuItem(String name)
-    {
-        return new MenuItem(name, new MenuShortcut(name.charAt(0)));
-    }
-
     private MenuItem createMenuItem(String name, ActionListener action)
     {
         MenuItem menuItem;
