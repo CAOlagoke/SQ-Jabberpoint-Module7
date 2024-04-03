@@ -22,16 +22,12 @@ public class MenuController extends MenuBar
     private static final long serialVersionUID = 227L;
 
     protected static final String ABOUT = "About";
-    protected static final String FILE = "File";
     protected static final String EXIT = "Exit";
     protected static final String GOTO = "Go to";
     protected static final String HELP = "Help";
-    protected static final String NEW = "New";
     protected static final String NEXT = "Next";
-    protected static final String OPEN = "Open";
     protected static final String PAGENR = "Page number?";
     protected static final String PREV = "Prev";
-    protected static final String SAVE = "Save";
     protected static final String VIEW = "View";
 
     protected static final String TESTFILE = "test.xml";
@@ -46,49 +42,11 @@ public class MenuController extends MenuBar
         this.parent = frame;
         this.presentation = pres;
         MenuItem menuItem;
-        Menu fileMenu = new Menu(FILE);
-        fileMenu.add(menuItem = this.mkMenuItem(OPEN));
-        menuItem.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent actionEvent)
-            {
-                MenuController.this.presentation.clear();
-                Accessor xmlAccessor = new XMLAccessor();
-                try
-                {
-                    xmlAccessor.loadFile(MenuController.this.presentation, TESTFILE);
-                    MenuController.this.presentation.setSlideNumber(0);
-                } catch(IOException exc)
-                {
-                    JOptionPane.showMessageDialog(MenuController.this.parent, IOEX + exc, LOADERR, JOptionPane.ERROR_MESSAGE);
-                }
-                MenuController.this.parent.repaint();
-            }
-        });
-        fileMenu.add(menuItem = this.mkMenuItem(NEW));
-        menuItem.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent actionEvent)
-            {
-                MenuController.this.presentation.clear();
-                MenuController.this.parent.repaint();
-            }
-        });
-        fileMenu.add(menuItem = this.mkMenuItem(SAVE));
-        menuItem.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                Accessor xmlAccessor = new XMLAccessor();
-                try
-                {
-                    xmlAccessor.saveFile(MenuController.this.presentation, SAVEFILE);
-                } catch(IOException exc)
-                {
-                    JOptionPane.showMessageDialog(MenuController.this.parent, IOEX + exc, SAVEERR, JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        });
+
+        Menu fileMenu = new Menu("File");
+        fileMenu.add(this.createMenuItem("Open", e -> this.openFile(), 'O'));
+        fileMenu.add(this.createMenuItem("New", e -> this.newFile(), 'N'));
+        fileMenu.add(this.createMenuItem("Save", e -> this.saveFile(), 'S'));
         fileMenu.addSeparator();
         fileMenu.add(menuItem = this.mkMenuItem(EXIT));
         menuItem.addActionListener(new ActionListener()
@@ -139,9 +97,60 @@ public class MenuController extends MenuBar
         this.setHelpMenu(helpMenu);        // needed for portability (Motif, etc.).
     }
 
+    // handlers for the menu items
+    private void openFile()
+    {
+        MenuController.this.presentation.clear();
+        Accessor xmlAccessor = new XMLAccessor();
+        try
+        {
+            xmlAccessor.loadFile(MenuController.this.presentation, TESTFILE);
+            MenuController.this.presentation.setSlideNumber(0);
+        } catch(IOException exc)
+        {
+            JOptionPane.showMessageDialog(MenuController.this.parent, IOEX + exc, LOADERR, JOptionPane.ERROR_MESSAGE);
+        }
+        MenuController.this.parent.repaint();
+    }
+
+    private void newFile()
+    {
+        MenuController.this.presentation.clear();
+        MenuController.this.parent.repaint();
+    }
+
+    private void saveFile()
+    {
+        Accessor xmlAccessor = new XMLAccessor();
+        try
+        {
+            xmlAccessor.saveFile(MenuController.this.presentation, SAVEFILE);
+        } catch(IOException exc)
+        {
+            JOptionPane.showMessageDialog(MenuController.this.parent, IOEX + exc, SAVEERR, JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     // create a menu item
     public MenuItem mkMenuItem(String name)
     {
         return new MenuItem(name, new MenuShortcut(name.charAt(0)));
+    }
+
+    private MenuItem createMenuItem(String name, ActionListener action)
+    {
+        MenuItem menuItem;
+        menuItem = new MenuItem(name);
+        menuItem.addActionListener(action);
+        return menuItem;
+    }
+
+    // Overload the createMenuItem method to handle optional shortcut key
+    private MenuItem createMenuItem(String name, ActionListener action, char shortcutKey)
+    {
+        MenuItem menuItem;
+        menuItem = new MenuItem(name, new MenuShortcut(shortcutKey));
+        menuItem.addActionListener(action);
+        return menuItem;
     }
 }
