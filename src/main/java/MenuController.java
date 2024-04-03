@@ -98,7 +98,7 @@ public class MenuController extends MenuBar
     }
 
     // create a menu item
-    private MenuItem createMenuItem(String name, ActionListener action)
+    protected MenuItem createMenuItem(String name, ActionListener action)
     {
         MenuItem menuItem;
         menuItem = new MenuItem(name);
@@ -106,7 +106,7 @@ public class MenuController extends MenuBar
         return menuItem;
     }
 
-    private MenuItem createMenuItem(String name, ActionListener action, char shortcutKey)
+    protected MenuItem createMenuItem(String name, ActionListener action, char shortcutKey)
     {
         MenuItem menuItem;
         menuItem = new MenuItem(name, new MenuShortcut(shortcutKey));
