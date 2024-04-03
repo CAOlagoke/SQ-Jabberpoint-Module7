@@ -42,8 +42,8 @@ public class MenuController extends MenuBar
         this.add(fileMenu);
 
         Menu viewMenu = new Menu("View");
-        viewMenu.add(this.createMenuItem("Next slide", e -> this.nextSlide()));
-        viewMenu.add(this.createMenuItem("Previous slide", e -> this.prevSlide()));
+        viewMenu.add(this.createMenuItem("Next slide", e -> this.presentation.nextSlide()));
+        viewMenu.add(this.createMenuItem("Previous slide", e -> this.presentation.prevSlide()));
         viewMenu.add(this.createMenuItem("Go to...", e -> this.goToSlide(), 'G'));
         this.add(viewMenu);
 
@@ -89,15 +89,6 @@ public class MenuController extends MenuBar
     }
 
     // slide operations
-    private void nextSlide()
-    {
-        MenuController.this.presentation.nextSlide();
-    }
-
-    private void prevSlide()
-    {
-        MenuController.this.presentation.prevSlide();
-    }
 
     private void goToSlide()
     {
