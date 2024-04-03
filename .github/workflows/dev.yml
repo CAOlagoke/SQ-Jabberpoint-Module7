@@ -8,7 +8,7 @@
 
 # hello teachers
 
-name: Coverage test
+name: Maven Compile
 
 on:
   push:
