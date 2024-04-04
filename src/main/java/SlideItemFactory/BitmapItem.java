@@ -1,3 +1,7 @@
+package SlideItemFactory;
+
+import Style.Style;
+
 import java.awt.Rectangle;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -20,17 +24,20 @@ import java.io.IOException;
  * @version 1.6 2014/05/16 Sylvia Stuurman
 */
 
-public class BitmapItem extends SlideItem {
+public class BitmapItem implements SlideItem {
   private BufferedImage bufferedImage;
   private String imageName;
-  
+
+  private int level;
+
   protected static final String FILE = "File ";
   protected static final String NOTFOUND = " not found";
 
 // level is equal to item-level; name is the name of the file with the Image
 	public BitmapItem(int level, String name) {
-		super(level);
-		imageName = name;
+
+		this.level = level;
+		this.imageName = name;
 		try {
 			bufferedImage = ImageIO.read(new File(imageName));
 		}
@@ -39,6 +46,9 @@ public class BitmapItem extends SlideItem {
 		}
 	}
 
+	public int getLevel() {
+		return this.level;
+	}
 // An empty bitmap-item
 	public BitmapItem() {
 		this(0, null);
@@ -66,6 +76,6 @@ public class BitmapItem extends SlideItem {
 	}
 
 	public String toString() {
-		return "BitmapItem[" + getLevel() + "," + imageName + "]";
+		return "SlideItem.BitmapItem[" + getLevel() + "," + imageName + "]";
 	}
 }

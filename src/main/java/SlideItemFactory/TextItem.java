@@ -1,3 +1,7 @@
+package SlideItemFactory;
+
+import Style.Style;
+
 import java.awt.Rectangle;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -14,7 +18,7 @@ import java.util.Iterator;
 import java.util.ArrayList;
 
 /** <p>A tekst item.</p>
- * <p>A TextItem has drawingfunctionality.</p>
+ * <p>A SlideItem.TextItem has drawingfunctionality.</p>
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
  * @version 1.1 2002/12/17 Gert Florijn
  * @version 1.2 2003/11/19 Sylvia Stuurman
@@ -24,28 +28,26 @@ import java.util.ArrayList;
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
 
-public class TextItem extends SlideItem {
+public class TextItem implements SlideItem {
 	private String text;
-	
-	private static final String EMPTYTEXT = "No Text Given";
-
-// a textitem of level level, with the text string
-	public TextItem(int level, String string) {
-		super(level);
-		text = string;
+	private int level;
+//
+	public TextItem(int level, String text) {
+		this.text = text;
 	}
 
-// an empty textitem
-	public TextItem() {
-		this(0, EMPTYTEXT);
-	}
-
-// give the text
+//
 	public String getText() {
-		return text == null ? "" : text;
+		return this.text;
 	}
 
-// geef de AttributedString voor het item
+	public int getLevel() {
+		return this.level;
+	}
+
+
+
+	// geef de AttributedString voor het item
 	public AttributedString getAttributedString(Style style, float scale) {
 		AttributedString attrStr = new AttributedString(getText());
 		attrStr.addAttribute(TextAttribute.FONT, style.getFont(scale), 0, text.length());
@@ -105,6 +107,6 @@ public class TextItem extends SlideItem {
 	}
 
 	public String toString() {
-		return "TextItem[" + getLevel()+","+getText()+"]";
+		return "SlideItem.TextItem[" + getLevel()+","+getText()+"]";
 	}
 }

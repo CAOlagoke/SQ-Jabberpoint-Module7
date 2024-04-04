@@ -1,3 +1,5 @@
+import SlideItemFactory.Slide;
+
 import java.util.ArrayList;
 
 
@@ -16,7 +18,7 @@ import java.util.ArrayList;
 public class Presentation {
 	private String showTitle; // title of the presentation
 	private ArrayList<Slide> showList = null; // an ArrayList with Slides
-	private int currentSlideNumber = 0; // the slidenummer of the current Slide
+	private int currentSlideNumber = 0; // the slidenummer of the current SlideItemFactory.Slide
 	private SlideViewerComponent slideViewComponent = null; // the viewcomponent of the Slides
 
 	public Presentation() {

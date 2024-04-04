@@ -1,3 +1,5 @@
+import Style.Style;
+
 import javax.swing.JOptionPane;
 
 import java.io.IOException;

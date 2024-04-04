@@ -1,3 +1,7 @@
+package SlideItemFactory;
+
+import SlideItemFactory.*;
+import Style.Style;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
@@ -38,12 +42,12 @@ public class Slide {
 		title = newTitle;
 	}
 
-	// Create TextItem of String, and add the TextItem 
+	// Create SlideItem.TextItem of String, and add the SlideItem.TextItem
 	public void append(int level, String message) {
 		append(new TextItem(level, message));
 	}
 
-	// give the  SlideItem
+	// give the  SlideItem.SlideItem
 	public SlideItem getSlideItem(int number) {
 		return (SlideItem)items.elementAt(number);
 	}
@@ -53,7 +57,7 @@ public class Slide {
 		return items;
 	}
 
-	// give the size of the Slide
+	// give the size of the SlideItemFactory.Slide
 	public int getSize() {
 		return items.size();
 	}

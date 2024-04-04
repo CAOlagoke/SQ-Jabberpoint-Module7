@@ -1,9 +1,11 @@
+package Style;
+
 import java.awt.Color;
 import java.awt.Font;
 
-/** <p>Style is for Indent, Color, Font and Leading.</p>
+/** <p>Style.Style is for Indent, Color, Font and Leading.</p>
  * <p>Direct relation between style-number and item-level:
- * in Slide style if fetched for an item
+ * in SlideItemFactory.Slide style if fetched for an item
  * with style-number as item-level.</p>
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
  * @version 1.1 2002/12/17 Gert Florijn
@@ -18,11 +20,11 @@ public class Style {
 	private static Style[] styles; // The styles
 	
 	private static final String FONTNAME = "Helvetica";
-	int indent;
-	Color color;
-	Font font;
-	int fontSize;
-	int leading;
+	public int indent;
+	public Color color;
+	public Font font;
+	public int fontSize;
+	public int leading;
 
 	public static void createStyles() {
 		styles = new Style[5];    

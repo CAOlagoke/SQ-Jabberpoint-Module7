@@ -1,3 +1,6 @@
+import SlideItemFactory.Slide;
+import SlideItemFactory.BitmapItem;
+
 /** A built in demo-presentation
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
  * @version 1.1 2002/12/17 Gert Florijn
