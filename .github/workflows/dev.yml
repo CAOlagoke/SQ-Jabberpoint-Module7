@@ -31,3 +31,8 @@ jobs:
 
       - name: Maven compile
         run: mvn compile
+
+      - name: Format and commit
+        uses: axel-op/googlejavaformat-action@v3
+        with:
+          args: "--skip-sorting-imports --replace"
