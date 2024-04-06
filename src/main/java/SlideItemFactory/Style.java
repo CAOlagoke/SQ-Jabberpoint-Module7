@@ -1,13 +1,19 @@
 package SlideItemFactory;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONException;
+
 import java.awt.Color;
 import java.awt.Font;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 /**
- * Style.Style is for Indent, Color, Font and Leading.
+ * Style is for Indent, Color, Font and Leading.
  *
- * <p>Direct relation between style-number and item-level: in SlideItemFactory.Slide style if
- * fetched for an item with style-number as item-level.
+ * <p>Direct relation between style-number and item-level: in Slide style if fetched for an item
+ * with style-number as item-level.
  *
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
  * @version 1.1 2002/12/17 Gert Florijn
@@ -18,15 +24,15 @@ import java.awt.Font;
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
 public class Style {
-
   private static Style[] styles;
+
   private static final String FONTNAME = "Helvetica";
 
   int indent;
+  Color color;
+  Font font;
   int fontSize;
   int leading;
-  Font font;
-  Color color;
 
   public Style(int indent, Color color, int points, int leading) {
     this.indent = indent;
@@ -44,7 +50,6 @@ public class Style {
   }
 
   public Font getFont(float scale) {
-
     return this.font.deriveFont(this.fontSize * scale);
   }
 
@@ -85,13 +90,43 @@ public class Style {
   }
 
   public static void createStyles() {
-    styles = new Style[5];
-    // The styles are fixed.
-    styles[0] = new Style(0, Color.red, 48, 20); // style for item-level 0
-    styles[1] = new Style(20, Color.blue, 40, 10); // style for item-level 1
-    styles[2] = new Style(50, Color.black, 36, 10); // style for item-level 2
-    styles[3] = new Style(70, Color.black, 30, 10); // style for item-level 3
-    styles[4] = new Style(90, Color.black, 24, 10); // style for item-level 4
+    try {
+      JSONArray styles = readStyles();
+      Style.styles = new Style[styles.length()];
+
+      for (int i = 0; i < styles.length(); ++i) {
+        JSONObject style = styles.getJSONObject(i);
+        Style.styles[i] =
+            new Style(
+                style.getInt("indent"),
+                Color.decode(style.getString("color")),
+                style.getInt("fontSize"),
+                style.getInt("leading"));
+      }
+
+    } catch (JSONException | IOException ex) {
+      ex.printStackTrace();
+    }
+  }
+
+  private static JSONArray readStyles() throws IOException, JSONException {
+    ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+    InputStream resourceStream = classLoader.getResourceAsStream("styles.json");
+
+    if (resourceStream == null) {
+      throw new FileNotFoundException("Resource file not found.");
+    }
+
+    BufferedReader streamReader =
+        new BufferedReader(new InputStreamReader(resourceStream, StandardCharsets.UTF_8));
+    StringBuilder responseStrBuilder = new StringBuilder();
+
+    String inputStr;
+    while ((inputStr = streamReader.readLine()) != null) {
+      responseStrBuilder.append(inputStr);
+    }
+
+    return new JSONArray(responseStrBuilder.toString());
   }
 
   public String toString() {
