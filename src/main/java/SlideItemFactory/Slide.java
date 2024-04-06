@@ -29,7 +29,7 @@ public class Slide {
 	}
 
 	// Add a slide item
-	public void append(SlideItem slideItem) {
+	public void addSlideItem(SlideItem slideItem) {
 		this.items.addElement(slideItem);
 	}
 
@@ -44,10 +44,18 @@ public class Slide {
 	}
 
 	// Create SlideItem.TextItem of String, and add the SlideItem.TextItem
-	public void append(int level, String message) {
-		append(new TextItem(level, message));
+	public void addTextItem(int level, String message) {
+		SlideItemFactory textItemFactory = new TextItemFactory();
+
+		addSlideItem(textItemFactory.createSlideItem(level, message));
 	}
 
+	public void addBitmapItem(int level, String imageName){
+
+		SlideItemFactory bitmapItemFactory = new BitMapItemFactory();
+
+		addSlideItem(bitmapItemFactory.createSlideItem(level, imageName));
+	}
 	// give the  SlideItem.SlideItem
 	public SlideItem getSlideItem(int number) {
 		return (SlideItem)items.elementAt(number);
@@ -55,11 +63,11 @@ public class Slide {
 
 	// give all SlideItems in a Vector
 	public Vector<SlideItem> getSlideItems() {
-		return items;
+		return this.items;
 	}
 
 	// give the size of the SlideItemFactory.Slide
-	public int getSize() {
+	public int getSizeOfSlideItems() {
 		return items.size();
 	}
 
@@ -67,22 +75,59 @@ public class Slide {
 	public void draw(Graphics g, Rectangle area, ImageObserver view) {
 		float scale = getScale(area);
 	    int y = area.y;
-	// Title is handled separately
-		SlideItemFactory textItemFactory = new TextItemFactory();
-		Style style = Style.getStyle(0);
-	    SlideItem slideItem =  textItemFactory.createSlideItem(0, getTitle());
+	// To handle drawing the title separately
+		
+		y+= drawTitle(g, area.x, y, view, scale);
 
-	    slideItem.draw(area.x, y, scale, g, style, view);
-	    y += slideItem.getBoundingBox(g, view, scale, style).height;
-
-	    for (int number=0; number<getSize(); number++) {
-	      slideItem = getSlideItems().elementAt(number);
-	      style = Style.getStyle(slideItem.getLevel());
+	    for (int i=0; i < this.getSizeOfSlideItems(); i++) {
+	      SlideItem slideItem = getSlideItems().elementAt(i);
+	      Style style = Style.getStyle(getLevel(slideItem));
 	      slideItem.draw(area.x, y, scale, g, style, view);
 	      y += slideItem.getBoundingBox(g, view, scale, style).height;
 	    }
 	  }
 
+	  public int drawTitle(Graphics g, int x, int y, ImageObserver view, float scale){
+
+		int defaultLevel = 0;
+		SlideItemFactory textItemFactory = new TextItemFactory();
+		Style style = Style.getStyle(defaultLevel);
+	    SlideItem slideItem =  textItemFactory.createSlideItem(defaultLevel, getTitle());
+
+		slideItem.draw(x, y, scale, g, style, view);
+
+		int increase = slideItem.getBoundingBox(g, view, scale, style).height;
+
+		return increase;
+	  }
+
+	  public String getText(Object slideItem){
+		
+		String text = null;
+		if(slideItem instanceof TextItem){
+
+			text = ((TextItem)slideItem).getText();
+		}else if(slideItem instanceof BitmapItem){
+			
+			text = ((BitmapItem)slideItem).getName();
+		}
+
+		return text;
+	  }
+
+	  public int getLevel(Object slideItem){
+
+		int level = 0;
+		if(slideItem instanceof TextItem){
+
+			level = ((TextItem)slideItem).getLevel();
+		}else if(slideItem instanceof BitmapItem){
+			
+			level = ((BitmapItem)slideItem).getLevel();
+		}
+
+		return level;
+	  }
 
 //	public void draw(Graphics g, Rectangle area, ImageObserver view) {
 //		float scale = getScale(area);

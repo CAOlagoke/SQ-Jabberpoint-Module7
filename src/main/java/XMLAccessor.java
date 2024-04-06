@@ -66,8 +66,7 @@ public class XMLAccessor extends Accessor {
 			max = slides.getLength();
 			for (slideNumber = 0; slideNumber < max; slideNumber++) {
 				Element xmlSlide = (Element) slides.item(slideNumber);
-				Slide slide = new Slide();
-				slide.setTitle(getTitle(xmlSlide, SLIDETITLE));
+				Slide slide = new Slide(getTitle(xmlSlide, SLIDETITLE));
 				presentation.append(slide);
 				
 				NodeList slideItems = xmlSlide.getElementsByTagName(ITEM);
@@ -103,11 +102,11 @@ public class XMLAccessor extends Accessor {
 		}
 		String type = attributes.getNamedItem(KIND).getTextContent();
 		if (TEXT.equals(type)) {
-			slide.append(new TextItem(level, item.getTextContent()));
+			slide.addTextItem(level, item.getTextContent());
 		}
 		else {
 			if (IMAGE.equals(type)) {
-				slide.append(new BitmapItem(level, item.getTextContent()));
+				slide.addBitmapItem(level, item.getTextContent());
 			}
 			else {
 				System.err.println(UNKNOWNTYPE);
@@ -123,21 +122,23 @@ public class XMLAccessor extends Accessor {
 		out.print("<showtitle>");
 		out.print(presentation.getTitle());
 		out.println("</showtitle>");
+
 		for (int slideNumber=0; slideNumber<presentation.getSize(); slideNumber++) {
 			Slide slide = presentation.getSlide(slideNumber);
 			out.println("<slide>");
 			out.println("<title>" + slide.getTitle() + "</title>");
-			Vector<SlideItem> slideItems = slide.getSlideItems();
-			for (int itemNumber = 0; itemNumber<slideItems.size(); itemNumber++) {
-				SlideItem slideItem = (SlideItem) slideItems.elementAt(itemNumber);
+
+			for (int i = 0; i < slide.getSizeOfSlideItems(); i++) {
+				Object slideItem = slide.getSlideItems().elementAt(i);
+
 				out.print("<item kind="); 
 				if (slideItem instanceof TextItem) {
-					out.print("\"text\" level=\"" + slideItem.getLevel() + "\">");
+					out.print("\"text\" level=\"" + ((TextItem)slideItem).getLevel() + "\">");
 					out.print( ( (TextItem) slideItem).getText());
 				}
 				else {
 					if (slideItem instanceof BitmapItem) {
-						out.print("\"image\" level=\"" + slideItem.getLevel() + "\">");
+						out.print("\"image\" level=\"" + ((BitmapItem)slideItem).getLevel() + "\">");
 						out.print( ( (BitmapItem) slideItem).getName());
 					}
 					else {
@@ -151,4 +152,6 @@ public class XMLAccessor extends Accessor {
 		out.println("</presentation>");
 		out.close();
 	}
+
+
 }
