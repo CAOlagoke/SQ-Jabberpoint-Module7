@@ -79,9 +79,20 @@ public class Slide {
 		
 		y+= drawTitle(g, area.x, y, view, scale);
 
-	    for (int i=0; i < this.getSizeOfSlideItems(); i++) {
+	    for (int i = 0; i < this.getSizeOfSlideItems(); i++) {
 	      SlideItem slideItem = getSlideItems().elementAt(i);
-	      Style style = Style.getStyle(getLevel(slideItem));
+			
+		  int sItemLevel = getLevel(slideItem);
+		  
+		  System.out.println("Text of slideItem, color" + i + ": " + getText(slideItem));
+		  System.out.println("Level of slideItem, color" + i + ": " + sItemLevel);
+		
+
+		  System.out.println("Level of slideItem" + i + ": " + Style.getStyle(sItemLevel));
+		  
+	      Style style = Style.getStyle(sItemLevel);
+
+		  System.out.println("Style of slideItem" + i + ": " + style);
 	      slideItem.draw(area.x, y, scale, g, style, view);
 	      y += slideItem.getBoundingBox(g, view, scale, style).height;
 	    }
@@ -101,7 +112,7 @@ public class Slide {
 		return increase;
 	  }
 
-	  public String getText(Object slideItem){
+	  public String getText(SlideItem slideItem){
 		
 		String text = null;
 		if(slideItem instanceof TextItem){
@@ -115,12 +126,13 @@ public class Slide {
 		return text;
 	  }
 
-	  public int getLevel(Object slideItem){
+	  public int getLevel(SlideItem slideItem){
 
-		int level = 0;
+		int level = 1;
 		if(slideItem instanceof TextItem){
 
 			level = ((TextItem)slideItem).getLevel();
+
 		}else if(slideItem instanceof BitmapItem){
 			
 			level = ((BitmapItem)slideItem).getLevel();

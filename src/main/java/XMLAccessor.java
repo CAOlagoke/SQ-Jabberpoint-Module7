@@ -91,6 +91,7 @@ public class XMLAccessor extends Accessor {
 	protected void loadSlideItem(Slide slide, Element item) {
 		int level = 1; // default
 		NamedNodeMap attributes = item.getAttributes();
+		System.out.println("LoadSlideItem(attributes): " + attributes);
 		String leveltext = attributes.getNamedItem(LEVEL).getTextContent();
 		if (leveltext != null) {
 			try {
@@ -101,6 +102,8 @@ public class XMLAccessor extends Accessor {
 			}
 		}
 		String type = attributes.getNamedItem(KIND).getTextContent();
+
+		System.out.println("LoadSlideItem(type): " + type);
 		if (TEXT.equals(type)) {
 			slide.addTextItem(level, item.getTextContent());
 		}
