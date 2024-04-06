@@ -20,17 +20,17 @@ import java.util.Vector;
 public class Slide {
 	public final static int WIDTH = 1200;
 	public final static int HEIGHT = 800;
-	protected String title; // title is saved separately
-	protected Vector<SlideItem> items; // slide items are saved in a Vector
+	protected String title; // title was previously set separately
+	protected Vector<SlideItem> slideItems; // slide items are saved in a Vector
 
 	public Slide(String title) {
 		this.title = title;
-		this.items = new Vector<SlideItem>();
+		this.slideItems = new Vector<SlideItem>();
 	}
 
 	// Add a slide item
 	public void addSlideItem(SlideItem slideItem) {
-		this.items.addElement(slideItem);
+		this.slideItems.addElement(slideItem);
 	}
 
 	// give the title of the slide
@@ -46,29 +46,27 @@ public class Slide {
 	// Create SlideItem.TextItem of String, and add the SlideItem.TextItem
 	public void addTextItem(int level, String message) {
 		SlideItemFactory textItemFactory = new TextItemFactory();
-
 		addSlideItem(textItemFactory.createSlideItem(level, message));
 	}
 
 	public void addBitmapItem(int level, String imageName){
 
 		SlideItemFactory bitmapItemFactory = new BitMapItemFactory();
-
 		addSlideItem(bitmapItemFactory.createSlideItem(level, imageName));
 	}
 	// give the  SlideItem.SlideItem
-	public SlideItem getSlideItem(int number) {
-		return (SlideItem)items.elementAt(number);
+	public SlideItem getSlideItem(int position) {
+		return slideItems.elementAt(position);
 	}
 
 	// give all SlideItems in a Vector
 	public Vector<SlideItem> getSlideItems() {
-		return this.items;
+		return this.slideItems;
 	}
 
 	// give the size of the SlideItemFactory.Slide
 	public int getSizeOfSlideItems() {
-		return items.size();
+		return slideItems.size();
 	}
 
 	// draw the slide
@@ -84,15 +82,10 @@ public class Slide {
 			
 		  int sItemLevel = getLevel(slideItem);
 		  
-		  System.out.println("Text of slideItem, color" + i + ": " + getText(slideItem));
-		  System.out.println("Level of slideItem, color" + i + ": " + sItemLevel);
-		
-
-		  System.out.println("Level of slideItem" + i + ": " + Style.getStyle(sItemLevel));
+		//   System.out.println("Text of slideItem, color" + i + ": " + getText(slideItem));
 		  
 	      Style style = Style.getStyle(sItemLevel);
 
-		  System.out.println("Style of slideItem" + i + ": " + style);
 	      slideItem.draw(area.x, y, scale, g, style, view);
 	      y += slideItem.getBoundingBox(g, view, scale, style).height;
 	    }
@@ -128,7 +121,7 @@ public class Slide {
 
 	  public int getLevel(SlideItem slideItem){
 
-		int level = 1;
+		int level = 0;
 		if(slideItem instanceof TextItem){
 
 			level = ((TextItem)slideItem).getLevel();
@@ -140,23 +133,6 @@ public class Slide {
 
 		return level;
 	  }
-
-//	public void draw(Graphics g, Rectangle area, ImageObserver view) {
-//		float scale = getScale(area);
-//		int y = area.y;
-//		// Title is handled separately
-//		SlideItem slideItem = new TextItem(0, getTitle());
-//		Style style = Style.getStyle(slideItem.getLevel());
-//		slideItem.draw(area.x, y, scale, g, style, view);
-//		y += slideItem.getBoundingBox(g, view, scale, style).height;
-//		for (int number=0; number<getSize(); number++) {
-//			slideItem = (SlideItem)getSlideItems().elementAt(number);
-//			style = Style.getStyle(slideItem.getLevel());
-//			slideItem.draw(area.x, y, scale, g, style, view);
-//			y += slideItem.getBoundingBox(g, view, scale, style).height;
-//		}
-//	}
-
 
 	// Give the scale for drawing
 	private float getScale(Rectangle area) {

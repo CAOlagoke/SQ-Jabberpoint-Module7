@@ -33,6 +33,7 @@ public class TextItem implements SlideItem {
 	private int level;
 //
 	public TextItem(int level, String text) {
+		this.level = level;
 		this.text = text;
 	}
 
