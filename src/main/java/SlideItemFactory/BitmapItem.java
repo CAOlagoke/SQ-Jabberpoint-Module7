@@ -1,7 +1,5 @@
 package SlideItemFactory;
 
-import Style.Style;
-
 import java.awt.Rectangle;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -25,57 +23,64 @@ import java.io.IOException;
 */
 
 public class BitmapItem implements SlideItem {
+
   private BufferedImage bufferedImage;
   private String imageName;
-
   private int level;
 
-  protected static final String FILE = "File ";
-  protected static final String NOTFOUND = " not found";
-
-// level is equal to item-level; name is the name of the file with the Image
-	public BitmapItem(int level, String name) {
+	public BitmapItem(int level, String imageName) {
 
 		this.level = level;
-		this.imageName = name;
-		try {
+		this.imageName = imageName;
+
+		try 
+		{
 			bufferedImage = ImageIO.read(new File(imageName));
 		}
 		catch (IOException e) {
-			System.err.println(FILE + imageName + NOTFOUND) ;
+			System.err.println("File " + imageName + " not found") ;
 		}
 	}
 
 	public int getLevel() {
 		return this.level;
 	}
-// An empty bitmap-item
-	public BitmapItem() {
-		this(0, null);
+
+	public String getImageName() {
+		return this.imageName;
 	}
 
-// give the filename of the image
-	public String getName() {
-		return imageName;
+	public BufferedImage getBufferedImage() {
+		return this.bufferedImage;
 	}
 
-// give the  bounding box of the image
-	public Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale, Style myStyle) {
-		return new Rectangle((int) (myStyle.indent * scale), 0,
-				(int) (bufferedImage.getWidth(observer) * scale),
-				((int) (myStyle.leading * scale)) + 
-				(int) (bufferedImage.getHeight(observer) * scale));
+	public void setBufferedImage(BufferedImage bufferedImage) {
+		this.bufferedImage = bufferedImage;
+	}
+
+	// give the  bounding box of the image
+	public Rectangle getBoundingBox(Graphics graphics, ImageObserver observer, float scale, Style style) {
+
+		int xCoordinate = (int) (style.getIndent() * scale);
+		int yCoordiante = 0;
+		int width = (int) (getBufferedImage().getWidth(observer) * scale);
+		int height = ((int) (style.getLeading() * scale)) + (int) (getBufferedImage().getHeight(observer) * scale);
+
+		return new Rectangle(xCoordinate, yCoordiante, width, height);
 	}
 
 // draw the image
-	public void draw(int x, int y, float scale, Graphics g, Style myStyle, ImageObserver observer) {
-		int width = x + (int) (myStyle.indent * scale);
-		int height = y + (int) (myStyle.leading * scale);
-		g.drawImage(bufferedImage, width, height,(int) (bufferedImage.getWidth(observer)*scale),
-                (int) (bufferedImage.getHeight(observer)*scale), observer);
+	public void draw(int xCoordinate, int yCoordinate, float scale, Graphics graphics, Style style, ImageObserver observer) {
+
+		int x = xCoordinate + (int) (style.getIndent() * scale);
+		int y = yCoordinate + (int) (style.getLeading() * scale);
+		int width = (int)(this.getBufferedImage().getWidth(observer)*scale);
+		int height= (int)(this.getBufferedImage().getHeight(observer)*scale);
+
+		graphics.drawImage(getBufferedImage(), x, y, width, height, observer);
 	}
 
 	public String toString() {
-		return "SlideItem.BitmapItem[" + getLevel() + "," + imageName + "]";
+		return "SlideItem.BitmapItem[" + getLevel() + "," + getImageName() + "]";
 	}
 }

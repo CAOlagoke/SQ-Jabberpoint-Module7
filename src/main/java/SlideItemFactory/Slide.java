@@ -1,7 +1,5 @@
 package SlideItemFactory;
 
-import SlideItemFactory.*;
-import Style.Style;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
@@ -20,16 +18,17 @@ import java.util.Vector;
 public class Slide {
 	public final static int WIDTH = 1200;
 	public final static int HEIGHT = 800;
-	protected String title; // title was previously set separately
+	protected String title;
 	protected Vector<SlideItem> slideItems; // slide items are saved in a Vector
 
 	public Slide(String title) {
 		this.title = title;
-		this.slideItems = new Vector<SlideItem>();
+		this.slideItems = new Vector<>();
 	}
 
 	// Add a slide item
-	public void addSlideItem(SlideItem slideItem) {
+	public void addSlideItem(SlideItem slideItem)
+	{
 		this.slideItems.addElement(slideItem);
 	}
 
@@ -44,50 +43,54 @@ public class Slide {
 	}
 
 	// Create SlideItem.TextItem of String, and add the SlideItem.TextItem
-	public void addTextItem(int level, String message) {
+	public void addTextItem(int level, String message)
+	{
 		SlideItemFactory textItemFactory = new TextItemFactory();
 		addSlideItem(textItemFactory.createSlideItem(level, message));
 	}
 
-	public void addBitmapItem(int level, String imageName){
-
+	public void addBitmapItem(int level, String imageName)
+	{
 		SlideItemFactory bitmapItemFactory = new BitMapItemFactory();
 		addSlideItem(bitmapItemFactory.createSlideItem(level, imageName));
 	}
-	// give the  SlideItem.SlideItem
-	public SlideItem getSlideItem(int position) {
+
+	public SlideItem getSlideItem(int position)
+	{
 		return slideItems.elementAt(position);
 	}
 
-	// give all SlideItems in a Vector
-	public Vector<SlideItem> getSlideItems() {
+	// returns all SlideItems in a Vector
+	public Vector<SlideItem> getSlideItems()
+	{
 		return this.slideItems;
 	}
 
 	// give the size of the SlideItemFactory.Slide
-	public int getSizeOfSlideItems() {
-		return slideItems.size();
+	public int getSizeOfSlideItems()
+	{
+		return this.slideItems.size();
 	}
 
 	// draw the slide
-	public void draw(Graphics g, Rectangle area, ImageObserver view) {
+	public void draw(Graphics graphics, Rectangle area, ImageObserver view)
+	{
 		float scale = getScale(area);
-	    int y = area.y;
-	// To handle drawing the title separately
-		
-		y+= drawTitle(g, area.x, y, view, scale);
+		int xCoordinate = area.x;
+	    int yCoordinate = area.y;
 
-	    for (int i = 0; i < this.getSizeOfSlideItems(); i++) {
+		yCoordinate+= drawTitle(graphics, xCoordinate, yCoordinate, view, scale);
+
+	    for (int i = 0; i < this.getSizeOfSlideItems(); i++)
+		{
 	      SlideItem slideItem = getSlideItems().elementAt(i);
-			
-		  int sItemLevel = getLevel(slideItem);
-		  
-		//   System.out.println("Text of slideItem, color" + i + ": " + getText(slideItem));
-		  
-	      Style style = Style.getStyle(sItemLevel);
 
-	      slideItem.draw(area.x, y, scale, g, style, view);
-	      y += slideItem.getBoundingBox(g, view, scale, style).height;
+		  int slideItemLevel = getLevel(slideItem);
+		//   System.out.println("Text of slideItem, color" + i + ": " + getText(slideItem));
+	      Style style = Style.getStyle(slideItemLevel);
+	      slideItem.draw(xCoordinate, yCoordinate, scale, graphics, style, view);
+
+	      yCoordinate += slideItem.getBoundingBox(graphics, view, scale, style).height;
 	    }
 	  }
 
@@ -105,37 +108,37 @@ public class Slide {
 		return increase;
 	  }
 
-	  public String getText(SlideItem slideItem){
-		
+	  public String getText(SlideItem slideItem)
+	  {
 		String text = null;
-		if(slideItem instanceof TextItem){
-
+		if(slideItem instanceof TextItem)
+		{
 			text = ((TextItem)slideItem).getText();
-		}else if(slideItem instanceof BitmapItem){
-			
-			text = ((BitmapItem)slideItem).getName();
 		}
-
+		else if(slideItem instanceof BitmapItem)
+		{
+			text = ((BitmapItem)slideItem).getImageName();
+		}
 		return text;
 	  }
 
-	  public int getLevel(SlideItem slideItem){
-
+	  public int getLevel(SlideItem slideItem)
+	  {
 		int level = 0;
-		if(slideItem instanceof TextItem){
-
+		if(slideItem instanceof TextItem)
+		{
 			level = ((TextItem)slideItem).getLevel();
-
-		}else if(slideItem instanceof BitmapItem){
-			
+		}
+		else if(slideItem instanceof BitmapItem)
+		{
 			level = ((BitmapItem)slideItem).getLevel();
 		}
-
 		return level;
 	  }
 
 	// Give the scale for drawing
-	private float getScale(Rectangle area) {
+	private float getScale(Rectangle area)
+	{
 		return Math.min(((float)area.width) / ((float)WIDTH), ((float)area.height) / ((float)HEIGHT));
 	}
 }

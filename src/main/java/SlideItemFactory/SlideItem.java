@@ -3,7 +3,6 @@ package SlideItemFactory;
 import java.awt.Rectangle;
 import java.awt.Graphics;
 import java.awt.image.ImageObserver;
-import Style.Style;
 
 
 /** <p>The abstract class for an item on a slide<p>
@@ -19,9 +18,9 @@ import Style.Style;
 
 interface SlideItem {
 
-// Give the bounding box
-	 public Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale, Style style);
+// Gets the bounding box
+	 Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale, Style style);
 
-// Draw the item
-	public abstract void draw(int x, int y, float scale, Graphics g, Style style, ImageObserver observer);
+// Draws the slideItem
+	 void draw(int x, int y, float scale, Graphics g, Style style, ImageObserver observer);
 }

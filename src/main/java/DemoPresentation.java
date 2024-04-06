@@ -1,5 +1,4 @@
 import SlideItemFactory.Slide;
-import SlideItemFactory.BitmapItem;
 
 /** A built in demo-presentation
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman

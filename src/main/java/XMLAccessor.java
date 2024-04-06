@@ -1,4 +1,3 @@
-import java.util.Vector;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -142,7 +141,7 @@ public class XMLAccessor extends Accessor {
 				else {
 					if (slideItem instanceof BitmapItem) {
 						out.print("\"image\" level=\"" + ((BitmapItem)slideItem).getLevel() + "\">");
-						out.print( ( (BitmapItem) slideItem).getName());
+						out.print( ( (BitmapItem) slideItem).getImageName());
 					}
 					else {
 						System.out.println("Ignoring " + slideItem);

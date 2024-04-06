@@ -1,6 +1,6 @@
-import Style.Style;
-
 import javax.swing.JOptionPane;
+
+import SlideItemFactory.Style;
 
 import java.io.IOException;
 
@@ -25,7 +25,7 @@ public class JabberPoint {
 
 	/** Het Main Programma */
 	public static void main(String argv[]) {
-		
+
 		Style.createStyles();
 		Presentation presentation = new Presentation();
 		new SlideViewerFrame(JABVERSION, presentation);
