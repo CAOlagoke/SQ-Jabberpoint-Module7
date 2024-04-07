@@ -5,7 +5,8 @@ import org.nhlstenden.jabberpoint.Presentation;
 import java.io.IOException;
 
 /**
- * Een org.nhlstenden.jabberpoint.accessor.Accessor maakt het mogelijk om gegevens voor een presentatie te lezen of te schrijven.
+ * Een org.nhlstenden.jabberpoint.accessor.Accessor maakt het mogelijk om gegevens voor een
+ * presentatie te lezen of te schrijven.
  *
  * <p>Niet-abstracte subklassen moeten de load en de save methode implementeren.
  *

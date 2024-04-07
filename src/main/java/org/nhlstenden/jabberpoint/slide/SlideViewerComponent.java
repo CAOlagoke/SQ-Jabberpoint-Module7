@@ -11,7 +11,8 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 
 /**
- * org.nhlstenden.jabberpoint.slide.SlideViewerComponent is a graphical component that can show slides.
+ * org.nhlstenden.jabberpoint.slide.SlideViewerComponent is a graphical component that can show
+ * slides.
  *
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
  * @version 1.1 2002/12/17 Gert Florijn
