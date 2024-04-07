@@ -3,10 +3,12 @@ package SlideItemFactory;
 import java.awt.Color;
 import java.awt.Font;
 
-/** <p>Style.Style is for Indent, Color, Font and Leading.</p>
- * <p>Direct relation between style-number and item-level:
- * in SlideItemFactory.Slide style if fetched for an item
- * with style-number as item-level.</p>
+/**
+ * Style.Style is for Indent, Color, Font and Leading.
+ *
+ * <p>Direct relation between style-number and item-level: in SlideItemFactory.Slide style if
+ * fetched for an item with style-number as item-level.
+ *
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
  * @version 1.1 2002/12/17 Gert Florijn
  * @version 1.2 2003/11/19 Sylvia Stuurman
@@ -15,89 +17,92 @@ import java.awt.Font;
  * @version 1.5 2010/03/03 Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
-
 public class Style {
 
-	private static Style[] styles;
-	private static final String FONTNAME = "Helvetica";
-	
-	int indent;
-	int fontSize;
-	int leading;
-	Font font;
-	Color color;
+  private static Style[] styles;
+  private static final String FONTNAME = "Helvetica";
 
-	public Style(int indent, Color color, int points, int leading)
-	{
-		this.indent = indent;
-		this.color = color;
-		this.fontSize = points;
-		this.font = new Font(FONTNAME, Font.BOLD, this.fontSize);
-		this.leading = leading;
-	}
+  int indent;
+  int fontSize;
+  int leading;
+  Font font;
+  Color color;
 
-	public static Style getStyle(int level)
-	{
-		if (level >= styles.length) {
-			level = styles.length - 1;
-		}
-		return styles[level];
-	}
+  public Style(int indent, Color color, int points, int leading) {
+    this.indent = indent;
+    this.color = color;
+    this.fontSize = points;
+    this.font = new Font(FONTNAME, Font.BOLD, this.fontSize);
+    this.leading = leading;
+  }
 
-	public Font getFont(float scale) {
+  public static Style getStyle(int level) {
+    if (level >= styles.length) {
+      level = styles.length - 1;
+    }
+    return styles[level];
+  }
 
-		return this.font.deriveFont(this.fontSize * scale);
-	}
+  public Font getFont(float scale) {
 
-	public int getIndent() {
-		return this.indent;
-	}
+    return this.font.deriveFont(this.fontSize * scale);
+  }
 
-	public Color getColor() {
-		return this.color;
-	}
+  public int getIndent() {
+    return this.indent;
+  }
 
-	public int getFontSize() {
-		return this.fontSize;
-	}
+  public Color getColor() {
+    return this.color;
+  }
 
-	public int getLeading() {
-		return this.leading;
-	}
+  public int getFontSize() {
+    return this.fontSize;
+  }
 
-	public void setIndent(int indent) {
-		this.indent = indent;
-	}
+  public int getLeading() {
+    return this.leading;
+  }
 
-	public void setColor(Color color) {
-		this.color = color;
-	}
+  public void setIndent(int indent) {
+    this.indent = indent;
+  }
 
-	public void setFont(Font font) {
-		this.font = font;
-	}
+  public void setColor(Color color) {
+    this.color = color;
+  }
 
-	public void setFontSize(int fontSize) {
-		this.fontSize = fontSize;
-	}
+  public void setFont(Font font) {
+    this.font = font;
+  }
 
-	public void setLeading(int leading) {
-		this.leading = leading;
-	}
+  public void setFontSize(int fontSize) {
+    this.fontSize = fontSize;
+  }
 
-	public static void createStyles(){
-		styles = new Style[5];
-		// The styles are fixed.
-		styles[0] = new Style(0, Color.red,   48, 20);	// style for item-level 0
-		styles[1] = new Style(20, Color.blue,  40, 10);	// style for item-level 1
-		styles[2] = new Style(50, Color.black, 36, 10);	// style for item-level 2
-		styles[3] = new Style(70, Color.black, 30, 10);	// style for item-level 3
-		styles[4] = new Style(90, Color.black, 24, 10);	// style for item-level 4
-	}
+  public void setLeading(int leading) {
+    this.leading = leading;
+  }
 
-	public String toString() {
-		return "["+ this.indent + "," + this.color + "; " + this.fontSize + " on " + this.leading +"]";
-	}
+  public static void createStyles() {
+    styles = new Style[5];
+    // The styles are fixed.
+    styles[0] = new Style(0, Color.red, 48, 20); // style for item-level 0
+    styles[1] = new Style(20, Color.blue, 40, 10); // style for item-level 1
+    styles[2] = new Style(50, Color.black, 36, 10); // style for item-level 2
+    styles[3] = new Style(70, Color.black, 30, 10); // style for item-level 3
+    styles[4] = new Style(90, Color.black, 24, 10); // style for item-level 4
+  }
 
-
+  public String toString() {
+    return "["
+        + this.indent
+        + ","
+        + this.color
+        + "; "
+        + this.fontSize
+        + " on "
+        + this.leading
+        + "]";
+  }
 }
