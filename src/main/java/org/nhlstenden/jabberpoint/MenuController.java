@@ -61,7 +61,10 @@ public class MenuController extends MenuBar {
       MenuController.this.presentation.setSlideNumber(0);
     } catch (IOException exc) {
       JOptionPane.showMessageDialog(
-          MenuController.this.parent, Constants.IO_ERR + exc, Constants.LOAD_ERR, JOptionPane.ERROR_MESSAGE);
+          MenuController.this.parent,
+          Constants.IO_ERR + exc,
+          Constants.LOAD_ERR,
+          JOptionPane.ERROR_MESSAGE);
     }
     MenuController.this.parent.repaint();
   }
@@ -77,7 +80,10 @@ public class MenuController extends MenuBar {
       xmlAccessor.saveFile(MenuController.this.presentation, Constants.DEFAULT_SAVE_PATH);
     } catch (IOException exc) {
       JOptionPane.showMessageDialog(
-          MenuController.this.parent, Constants.IO_ERR + exc, Constants.SAVE_ERR, JOptionPane.ERROR_MESSAGE);
+          MenuController.this.parent,
+          Constants.IO_ERR + exc,
+          Constants.SAVE_ERR,
+          JOptionPane.ERROR_MESSAGE);
     }
   }
 

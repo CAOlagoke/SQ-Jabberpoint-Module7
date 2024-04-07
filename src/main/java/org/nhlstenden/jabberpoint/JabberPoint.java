@@ -41,7 +41,8 @@ public class JabberPoint {
       }
       presentation.setSlideNumber(0);
     } catch (IOException ex) {
-      JOptionPane.showMessageDialog(null, Constants.IO_ERR + ex, Constants.JAB_ERR, JOptionPane.ERROR_MESSAGE);
+      JOptionPane.showMessageDialog(
+          null, Constants.IO_ERR + ex, Constants.JAB_ERR, JOptionPane.ERROR_MESSAGE);
     }
   }
 }

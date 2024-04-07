@@ -7,7 +7,8 @@ public class Constants {
   private static final String JSON_FILE = "constants.json";
 
   public static String RESOURCE_LOADING_ERR =
-      "Error loading resource file. Please, run the built .jar file or build one with `mvn package` to resolve the issue.";
+      "Error loading resource file. Please, run the built .jar file or build one with `mvn package`"
+          + " to resolve the issue.";
 
   public static String TEST_FILE;
   public static String DEFAULT_SAVE_PATH;

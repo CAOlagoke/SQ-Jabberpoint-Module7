@@ -28,7 +28,7 @@ public class ResourceAccessor {
   public static String getResourceAsString(String resource) {
     InputStream resourceStream = getResource(resource);
     return new BufferedReader(new InputStreamReader(resourceStream, StandardCharsets.UTF_8))
-      .lines()
-      .collect(Collectors.joining("\n"));
+        .lines()
+        .collect(Collectors.joining("\n"));
   }
 }

@@ -10,7 +10,6 @@ import javax.swing.*;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 
 /**
  * Style is for Indent, Color, Font and Leading.
@@ -108,7 +107,8 @@ public class Style {
       }
 
     } catch (JSONException | IOException ex) {
-      JOptionPane.showMessageDialog(null, Constants.IO_ERR + ex, Constants.JAB_ERR, JOptionPane.ERROR_MESSAGE);
+      JOptionPane.showMessageDialog(
+          null, Constants.IO_ERR + ex, Constants.JAB_ERR, JOptionPane.ERROR_MESSAGE);
     }
   }
 
