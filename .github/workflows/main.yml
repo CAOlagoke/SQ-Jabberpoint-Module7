@@ -32,3 +32,4 @@ jobs:
         with:
           files: "target/**.jar"
           name: ${{ env.VERSION }}
+          tag_name: ${{ env.VERSION }}
