@@ -1,3 +1,5 @@
+import SlideItemFactory.Slide;
+
 import java.util.ArrayList;
 
 /**

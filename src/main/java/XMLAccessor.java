@@ -1,4 +1,3 @@
-import java.util.Vector;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,6 +7,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import SlideItemFactory.Slide;
+import SlideItemFactory.*;
 import org.xml.sax.SAXException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -64,8 +65,7 @@ public class XMLAccessor extends Accessor {
       max = slides.getLength();
       for (slideNumber = 0; slideNumber < max; slideNumber++) {
         Element xmlSlide = (Element) slides.item(slideNumber);
-        Slide slide = new Slide();
-        slide.setTitle(getTitle(xmlSlide, SLIDETITLE));
+        Slide slide = new Slide(getTitle(xmlSlide, SLIDETITLE));
         presentation.append(slide);
 
         NodeList slideItems = xmlSlide.getElementsByTagName(ITEM);
@@ -87,6 +87,7 @@ public class XMLAccessor extends Accessor {
   protected void loadSlideItem(Slide slide, Element item) {
     int level = 1; // default
     NamedNodeMap attributes = item.getAttributes();
+    System.out.println("LoadSlideItem(attributes): " + attributes);
     String leveltext = attributes.getNamedItem(LEVEL).getTextContent();
     if (leveltext != null) {
       try {
@@ -96,11 +97,13 @@ public class XMLAccessor extends Accessor {
       }
     }
     String type = attributes.getNamedItem(KIND).getTextContent();
+
+    System.out.println("LoadSlideItem(type): " + type);
     if (TEXT.equals(type)) {
-      slide.append(new TextItem(level, item.getTextContent()));
+      slide.addTextItem(level, item.getTextContent());
     } else {
       if (IMAGE.equals(type)) {
-        slide.append(new BitmapItem(level, item.getTextContent()));
+        slide.addBitmapItem(level, item.getTextContent());
       } else {
         System.err.println(UNKNOWNTYPE);
       }
@@ -115,21 +118,23 @@ public class XMLAccessor extends Accessor {
     out.print("<showtitle>");
     out.print(presentation.getTitle());
     out.println("</showtitle>");
+
     for (int slideNumber = 0; slideNumber < presentation.getSize(); slideNumber++) {
       Slide slide = presentation.getSlide(slideNumber);
       out.println("<slide>");
       out.println("<title>" + slide.getTitle() + "</title>");
-      Vector<SlideItem> slideItems = slide.getSlideItems();
-      for (int itemNumber = 0; itemNumber < slideItems.size(); itemNumber++) {
-        SlideItem slideItem = (SlideItem) slideItems.elementAt(itemNumber);
+
+      for (int i = 0; i < slide.getSizeOfSlideItems(); i++) {
+        Object slideItem = slide.getSlideItems().elementAt(i);
+
         out.print("<item kind=");
         if (slideItem instanceof TextItem) {
-          out.print("\"text\" level=\"" + slideItem.getLevel() + "\">");
+          out.print("\"text\" level=\"" + ((TextItem) slideItem).getLevel() + "\">");
           out.print(((TextItem) slideItem).getText());
         } else {
           if (slideItem instanceof BitmapItem) {
-            out.print("\"image\" level=\"" + slideItem.getLevel() + "\">");
-            out.print(((BitmapItem) slideItem).getName());
+            out.print("\"image\" level=\"" + ((BitmapItem) slideItem).getLevel() + "\">");
+            out.print(((BitmapItem) slideItem).getImageName());
           } else {
             System.out.println("Ignoring " + slideItem);
           }

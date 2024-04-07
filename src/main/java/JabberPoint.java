@@ -1,5 +1,7 @@
 import javax.swing.JOptionPane;
 
+import SlideItemFactory.Style;
+
 import java.io.IOException;
 
 /**
