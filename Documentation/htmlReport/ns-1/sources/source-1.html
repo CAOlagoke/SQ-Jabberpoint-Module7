@@ -1,0 +1,136 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > AboutBox</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.nhlstenden.jabberpoint</a>
+</div>
+
+<h1>Coverage Summary for Class: AboutBox (org.nhlstenden.jabberpoint)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AboutBox</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (1/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (1/2)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package org.nhlstenden.jabberpoint;
+&nbsp;
+&nbsp;import java.awt.Frame;
+&nbsp;import javax.swing.JOptionPane;
+&nbsp;
+&nbsp;/**
+&nbsp; * De About-box voor JabberPoint.
+&nbsp; *
+&nbsp; * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
+&nbsp; * @version 1.1 2002/12/17 Gert Florijn
+&nbsp; * @version 1.2 2003/11/19 Sylvia Stuurman
+&nbsp; * @version 1.3 2004/08/17 Sylvia Stuurman
+&nbsp; * @version 1.4 2007/07/16 Sylvia Stuurman
+&nbsp; * @version 1.5 2010/03/03 Sylvia Stuurman
+&nbsp; * @version 1.6 2014/05/16 Sylvia Stuurman
+&nbsp; */
+<b class="nc">&nbsp;public class AboutBox {</b>
+&nbsp;  public static void show(Frame parent) {
+<b class="fc">&nbsp;    JOptionPane.showMessageDialog(</b>
+&nbsp;        parent,
+&nbsp;        &quot;JabberPoint is a primitive slide-show program in Java(tm). It\n&quot;
+&nbsp;            + &quot;is freely copyable as long as you keep this notice and\n&quot;
+&nbsp;            + &quot;the splash screen intact.\n&quot;
+&nbsp;            + &quot;Copyright (c) 1995-1997 by Ian F. Darwin, ian@darwinsys.com.\n&quot;
+&nbsp;            + &quot;Adapted by Gert Florijn (version 1.1) and &quot;
+&nbsp;            + &quot;Sylvia Stuurman (version 1.2 and higher) for the Open&quot;
+&nbsp;            + &quot;University of the Netherlands, 2002 -- now.&quot;
+&nbsp;            + &quot;Author&#39;s version available from http://www.darwinsys.com/&quot;,
+&nbsp;        &quot;About JabberPoint&quot;,
+&nbsp;        JOptionPane.INFORMATION_MESSAGE);
+&nbsp;  }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-07 23:02</div>
+</div>
+</body>
+</html>

@@ -1,6 +1,6 @@
+package org.nhlstenden.jabberpoint;
+
 import org.junit.jupiter.api.Test;
-import org.nhlstenden.jabberpoint.MenuController;
-import org.nhlstenden.jabberpoint.Presentation;
 
 import java.awt.*;
 

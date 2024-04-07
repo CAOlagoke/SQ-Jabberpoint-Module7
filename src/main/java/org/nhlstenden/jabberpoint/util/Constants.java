@@ -17,6 +17,7 @@ public class Constants {
   public static String SAVE_ERR;
   public static String JAB_ERR;
   public static String TITLE_FRAME;
+  public static String INT_ERR;
 
   public static void loadConstants() {
     JSONObject json = new JSONObject(ResourceAccessor.getResourceAsString(JSON_FILE));
@@ -29,6 +30,7 @@ public class Constants {
       SAVE_ERR = json.getString("errorSavingFile");
       JAB_ERR = json.getString("errorGeneric");
       TITLE_FRAME = json.getString("titleFrame");
+      INT_ERR = json.getString("errorParsingInt");
     } catch (JSONException e) {
       System.out.println("Error parsing JSON file: " + JSON_FILE);
       System.exit(0);

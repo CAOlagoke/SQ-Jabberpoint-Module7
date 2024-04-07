@@ -1,0 +1,267 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > XMLAccessor</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.nhlstenden.jabberpoint.accessor</a>
+</div>
+
+<h1>Coverage Summary for Class: XMLAccessor (org.nhlstenden.jabberpoint.accessor)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">XMLAccessor</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    83.3%
+  </span>
+  <span class="absValue">
+    (15/18)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    84.1%
+  </span>
+  <span class="absValue">
+    (53/63)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package org.nhlstenden.jabberpoint.accessor;
+&nbsp;
+&nbsp;import java.io.File;
+&nbsp;import java.io.IOException;
+&nbsp;import java.io.PrintWriter;
+&nbsp;import java.io.FileWriter;
+&nbsp;
+&nbsp;import javax.xml.parsers.DocumentBuilder;
+&nbsp;import javax.xml.parsers.DocumentBuilderFactory;
+&nbsp;import javax.xml.parsers.ParserConfigurationException;
+&nbsp;
+&nbsp;import org.nhlstenden.jabberpoint.Presentation;
+&nbsp;import org.nhlstenden.jabberpoint.slide.Slide;
+&nbsp;import org.nhlstenden.jabberpoint.slide.item.BitmapItem;
+&nbsp;import org.nhlstenden.jabberpoint.slide.item.TextItem;
+&nbsp;import org.xml.sax.SAXException;
+&nbsp;import org.w3c.dom.Document;
+&nbsp;import org.w3c.dom.Element;
+&nbsp;import org.w3c.dom.NamedNodeMap;
+&nbsp;import org.w3c.dom.NodeList;
+&nbsp;
+&nbsp;/**
+&nbsp; * XMLAccessor, reads and writes XML files
+&nbsp; *
+&nbsp; * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
+&nbsp; * @version 1.1 2002/12/17 Gert Florijn
+&nbsp; * @version 1.2 2003/11/19 Sylvia Stuurman
+&nbsp; * @version 1.3 2004/08/17 Sylvia Stuurman
+&nbsp; * @version 1.4 2007/07/16 Sylvia Stuurman
+&nbsp; * @version 1.5 2010/03/03 Sylvia Stuurman
+&nbsp; * @version 1.6 2014/05/16 Sylvia Stuurman
+&nbsp; */
+<b class="fc">&nbsp;public class XMLAccessor extends Accessor {</b>
+&nbsp;
+&nbsp;  /** Default API to use. */
+&nbsp;  protected static final String DEFAULT_API_TO_USE = &quot;dom&quot;;
+&nbsp;
+&nbsp;  /** names of xml tags or attributes */
+&nbsp;  protected static final String SHOWTITLE = &quot;showtitle&quot;;
+&nbsp;
+&nbsp;  protected static final String SLIDETITLE = &quot;title&quot;;
+&nbsp;  protected static final String SLIDE = &quot;slide&quot;;
+&nbsp;  protected static final String ITEM = &quot;item&quot;;
+&nbsp;  protected static final String LEVEL = &quot;level&quot;;
+&nbsp;  protected static final String KIND = &quot;kind&quot;;
+&nbsp;  protected static final String TEXT = &quot;text&quot;;
+&nbsp;  protected static final String IMAGE = &quot;image&quot;;
+&nbsp;
+&nbsp;  /** text of messages */
+&nbsp;  protected static final String PCE = &quot;Parser Configuration Exception&quot;;
+&nbsp;
+&nbsp;  protected static final String UNKNOWNTYPE = &quot;Unknown Element type&quot;;
+&nbsp;  protected static final String NFE = &quot;Number Format Exception&quot;;
+&nbsp;
+&nbsp;  private String getTitle(Element element, String tagName) {
+<b class="fc">&nbsp;    NodeList titles = element.getElementsByTagName(tagName);</b>
+<b class="fc">&nbsp;    return titles.item(0).getTextContent();</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public void loadFile(Presentation presentation, String filename) throws IOException {
+<b class="fc">&nbsp;    int slideNumber, itemNumber, max = 0, maxItems = 0;</b>
+&nbsp;    try {
+<b class="fc">&nbsp;      DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();</b>
+<b class="fc">&nbsp;      Document document = builder.parse(new File(filename)); // Create a JDOM document</b>
+<b class="fc">&nbsp;      Element doc = document.getDocumentElement();</b>
+<b class="fc">&nbsp;      presentation.setTitle(this.getTitle(doc, SHOWTITLE));</b>
+&nbsp;
+<b class="fc">&nbsp;      NodeList slides = doc.getElementsByTagName(SLIDE);</b>
+<b class="fc">&nbsp;      max = slides.getLength();</b>
+<b class="fc">&nbsp;      for (slideNumber = 0; slideNumber &lt; max; slideNumber++) {</b>
+<b class="fc">&nbsp;        Element xmlSlide = (Element) slides.item(slideNumber);</b>
+<b class="fc">&nbsp;        Slide slide = new Slide(this.getTitle(xmlSlide, SLIDETITLE));</b>
+<b class="fc">&nbsp;        presentation.append(slide);</b>
+&nbsp;
+<b class="fc">&nbsp;        NodeList slideItems = xmlSlide.getElementsByTagName(ITEM);</b>
+<b class="fc">&nbsp;        maxItems = slideItems.getLength();</b>
+<b class="fc">&nbsp;        for (itemNumber = 0; itemNumber &lt; maxItems; itemNumber++) {</b>
+<b class="fc">&nbsp;          Element item = (Element) slideItems.item(itemNumber);</b>
+<b class="fc">&nbsp;          this.loadSlideItem(slide, item);</b>
+&nbsp;        }
+&nbsp;      }
+<b class="nc">&nbsp;    } catch (IOException iox) {</b>
+<b class="nc">&nbsp;      System.err.println(iox);</b>
+<b class="nc">&nbsp;    } catch (SAXException sax) {</b>
+<b class="nc">&nbsp;      System.err.println(sax.getMessage());</b>
+<b class="nc">&nbsp;    } catch (ParserConfigurationException pcx) {</b>
+<b class="nc">&nbsp;      System.err.println(PCE);</b>
+&nbsp;    }
+&nbsp;  }
+&nbsp;
+&nbsp;  protected void loadSlideItem(Slide slide, Element item) {
+<b class="fc">&nbsp;    int level = 1; // default</b>
+<b class="fc">&nbsp;    NamedNodeMap attributes = item.getAttributes();</b>
+<b class="fc">&nbsp;    String leveltext = attributes.getNamedItem(LEVEL).getTextContent();</b>
+<b class="pc">&nbsp;    if (leveltext != null) {</b>
+&nbsp;      try {
+<b class="fc">&nbsp;        level = Integer.parseInt(leveltext);</b>
+<b class="nc">&nbsp;      } catch (NumberFormatException x) {</b>
+<b class="nc">&nbsp;        System.err.println(NFE);</b>
+&nbsp;      }
+&nbsp;    }
+<b class="fc">&nbsp;    String type = attributes.getNamedItem(KIND).getTextContent();</b>
+&nbsp;
+<b class="fc">&nbsp;    if (TEXT.equals(type)) {</b>
+<b class="fc">&nbsp;      slide.addTextItem(level, item.getTextContent());</b>
+&nbsp;    } else {
+<b class="pc">&nbsp;      if (IMAGE.equals(type)) {</b>
+<b class="fc">&nbsp;        slide.addBitmapItem(level, item.getTextContent());</b>
+&nbsp;      } else {
+<b class="nc">&nbsp;        System.err.println(UNKNOWNTYPE);</b>
+&nbsp;      }
+&nbsp;    }
+&nbsp;  }
+&nbsp;
+&nbsp;  public void saveFile(Presentation presentation, String filename) throws IOException {
+<b class="fc">&nbsp;    PrintWriter out = new PrintWriter(new FileWriter(filename));</b>
+<b class="fc">&nbsp;    out.println(&quot;&lt;?xml version=\&quot;1.0\&quot;?&gt;&quot;);</b>
+<b class="fc">&nbsp;    out.println(&quot;&lt;!DOCTYPE presentation SYSTEM \&quot;jabberpoint.dtd\&quot;&gt;&quot;);</b>
+<b class="fc">&nbsp;    out.println(&quot;&lt;presentation&gt;&quot;);</b>
+<b class="fc">&nbsp;    out.print(&quot;&lt;showtitle&gt;&quot;);</b>
+<b class="fc">&nbsp;    out.print(presentation.getTitle());</b>
+<b class="fc">&nbsp;    out.println(&quot;&lt;/showtitle&gt;&quot;);</b>
+&nbsp;
+<b class="fc">&nbsp;    for (int slideNumber = 0; slideNumber &lt; presentation.getSize(); slideNumber++) {</b>
+<b class="fc">&nbsp;      Slide slide = presentation.getSlide(slideNumber);</b>
+<b class="fc">&nbsp;      out.println(&quot;&lt;slide&gt;&quot;);</b>
+<b class="fc">&nbsp;      out.println(&quot;&lt;title&gt;&quot; + slide.getTitle() + &quot;&lt;/title&gt;&quot;);</b>
+&nbsp;
+<b class="fc">&nbsp;      for (int i = 0; i &lt; slide.getSizeOfSlideItems(); i++) {</b>
+<b class="fc">&nbsp;        Object slideItem = slide.getSlideItems().elementAt(i);</b>
+&nbsp;
+<b class="fc">&nbsp;        out.print(&quot;&lt;item kind=&quot;);</b>
+<b class="fc">&nbsp;        if (slideItem instanceof TextItem) {</b>
+<b class="fc">&nbsp;          out.print(&quot;\&quot;text\&quot; level=\&quot;&quot; + ((TextItem) slideItem).getLevel() + &quot;\&quot;&gt;&quot;);</b>
+<b class="fc">&nbsp;          out.print(((TextItem) slideItem).getText());</b>
+&nbsp;        } else {
+<b class="pc">&nbsp;          if (slideItem instanceof BitmapItem) {</b>
+<b class="fc">&nbsp;            out.print(&quot;\&quot;image\&quot; level=\&quot;&quot; + ((BitmapItem) slideItem).getLevel() + &quot;\&quot;&gt;&quot;);</b>
+<b class="fc">&nbsp;            out.print(((BitmapItem) slideItem).getImageName());</b>
+&nbsp;          } else {
+<b class="nc">&nbsp;            System.out.println(&quot;Ignoring &quot; + slideItem);</b>
+&nbsp;          }
+&nbsp;        }
+<b class="fc">&nbsp;        out.println(&quot;&lt;/item&gt;&quot;);</b>
+&nbsp;      }
+<b class="fc">&nbsp;      out.println(&quot;&lt;/slide&gt;&quot;);</b>
+&nbsp;    }
+<b class="fc">&nbsp;    out.println(&quot;&lt;/presentation&gt;&quot;);</b>
+<b class="fc">&nbsp;    out.close();</b>
+&nbsp;  }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-07 23:02</div>
+</div>
+</body>
+</html>

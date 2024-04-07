@@ -1,0 +1,247 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Slide</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.nhlstenden.jabberpoint.slide</a>
+</div>
+
+<h1>Coverage Summary for Class: Slide (org.nhlstenden.jabberpoint.slide)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Slide</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    78.6%
+  </span>
+  <span class="absValue">
+    (11/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    30%
+  </span>
+  <span class="absValue">
+    (3/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    76.7%
+  </span>
+  <span class="absValue">
+    (33/43)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package org.nhlstenden.jabberpoint.slide;
+&nbsp;
+&nbsp;import org.nhlstenden.jabberpoint.slide.item.*;
+&nbsp;
+&nbsp;import java.awt.Graphics;
+&nbsp;import java.awt.Rectangle;
+&nbsp;import java.awt.image.ImageObserver;
+&nbsp;import java.util.Vector;
+&nbsp;
+&nbsp;/**
+&nbsp; * A slide. This class has a drawing functionality.
+&nbsp; *
+&nbsp; * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
+&nbsp; * @version 1.1 2002/12/17 Gert Florijn
+&nbsp; * @version 1.2 2003/11/19 Sylvia Stuurman
+&nbsp; * @version 1.3 2004/08/17 Sylvia Stuurman
+&nbsp; * @version 1.4 2007/07/16 Sylvia Stuurman
+&nbsp; * @version 1.5 2010/03/03 Sylvia Stuurman
+&nbsp; * @version 1.6 2014/05/16 Sylvia Stuurman
+&nbsp; */
+&nbsp;public class Slide {
+&nbsp;  public static final int WIDTH = 1200;
+&nbsp;  public static final int HEIGHT = 800;
+&nbsp;  protected String title;
+&nbsp;  protected Vector&lt;SlideItem&gt; slideItems; // slide items are saved in a Vector
+&nbsp;
+<b class="fc">&nbsp;  public Slide(String title) {</b>
+<b class="fc">&nbsp;    this.title = title;</b>
+<b class="fc">&nbsp;    this.slideItems = new Vector&lt;&gt;();</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  // Add a slide item
+&nbsp;  public void addSlideItem(SlideItem slideItem) {
+<b class="fc">&nbsp;    this.slideItems.addElement(slideItem);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  // give the title of the slide
+&nbsp;  public String getTitle() {
+<b class="fc">&nbsp;    return this.title;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  // change the title of the slide
+&nbsp;  public void setTitle(String title) {
+<b class="nc">&nbsp;    this.title = title;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  // Create SlideItem.TextItem of String, and add the SlideItem.TextItem
+&nbsp;  public void addTextItem(int level, String message) {
+<b class="fc">&nbsp;    SlideItemFactory textItemFactory = new TextItemFactory();</b>
+<b class="fc">&nbsp;    this.addSlideItem(textItemFactory.createSlideItem(level, message));</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public void addBitmapItem(int level, String imageName) {
+<b class="fc">&nbsp;    SlideItemFactory bitmapItemFactory = new BitMapItemFactory();</b>
+<b class="fc">&nbsp;    this.addSlideItem(bitmapItemFactory.createSlideItem(level, imageName));</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public SlideItem getSlideItem(int position) {
+<b class="nc">&nbsp;    return this.slideItems.elementAt(position);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  // returns all SlideItems in a Vector
+&nbsp;  public Vector&lt;SlideItem&gt; getSlideItems() {
+<b class="fc">&nbsp;    return this.slideItems;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  // give the size of the org.nhlstenden.jabberpoint.slide.Slide
+&nbsp;  public int getSizeOfSlideItems() {
+<b class="fc">&nbsp;    return this.slideItems.size();</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  // draw the slide
+&nbsp;  public void draw(Graphics graphics, Rectangle area, ImageObserver view) {
+<b class="fc">&nbsp;    float scale = this.getScale(area);</b>
+<b class="fc">&nbsp;    int xCoordinate = area.x;</b>
+<b class="fc">&nbsp;    int yCoordinate = area.y;</b>
+&nbsp;
+<b class="fc">&nbsp;    yCoordinate += this.drawTitle(graphics, xCoordinate, yCoordinate, view, scale);</b>
+&nbsp;
+<b class="fc">&nbsp;    for (int i = 0; i &lt; this.getSizeOfSlideItems(); i++) {</b>
+<b class="fc">&nbsp;      SlideItem slideItem = this.getSlideItems().elementAt(i);</b>
+&nbsp;
+<b class="fc">&nbsp;      int slideItemLevel = this.getLevel(slideItem);</b>
+&nbsp;      //   System.out.println(&quot;Text of slideItem, color&quot; + i + &quot;: &quot; + getText(slideItem));
+<b class="fc">&nbsp;      Style style = Style.getStyle(slideItemLevel);</b>
+<b class="fc">&nbsp;      slideItem.draw(xCoordinate, yCoordinate, scale, graphics, style, view);</b>
+&nbsp;
+<b class="fc">&nbsp;      yCoordinate += slideItem.getBoundingBox(graphics, view, scale, style).height;</b>
+&nbsp;    }
+&nbsp;  }
+&nbsp;
+&nbsp;  public int drawTitle(Graphics g, int x, int y, ImageObserver view, float scale) {
+&nbsp;
+<b class="fc">&nbsp;    int defaultLevel = 0;</b>
+<b class="fc">&nbsp;    SlideItemFactory textItemFactory = new TextItemFactory();</b>
+<b class="fc">&nbsp;    Style style = Style.getStyle(defaultLevel);</b>
+<b class="fc">&nbsp;    SlideItem slideItem = textItemFactory.createSlideItem(defaultLevel, this.getTitle());</b>
+&nbsp;
+<b class="fc">&nbsp;    slideItem.draw(x, y, scale, g, style, view);</b>
+&nbsp;
+<b class="fc">&nbsp;    int increase = slideItem.getBoundingBox(g, view, scale, style).height;</b>
+&nbsp;
+<b class="fc">&nbsp;    return increase;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public String getText(SlideItem slideItem) {
+<b class="nc">&nbsp;    String text = null;</b>
+<b class="nc">&nbsp;    if (slideItem instanceof TextItem) {</b>
+<b class="nc">&nbsp;      text = ((TextItem) slideItem).getText();</b>
+<b class="nc">&nbsp;    } else if (slideItem instanceof BitmapItem) {</b>
+<b class="nc">&nbsp;      text = ((BitmapItem) slideItem).getImageName();</b>
+&nbsp;    }
+<b class="nc">&nbsp;    return text;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public int getLevel(SlideItem slideItem) {
+<b class="fc">&nbsp;    int level = 0;</b>
+<b class="pc">&nbsp;    if (slideItem instanceof TextItem) {</b>
+<b class="fc">&nbsp;      level = ((TextItem) slideItem).getLevel();</b>
+<b class="nc">&nbsp;    } else if (slideItem instanceof BitmapItem) {</b>
+<b class="nc">&nbsp;      level = ((BitmapItem) slideItem).getLevel();</b>
+&nbsp;    }
+<b class="fc">&nbsp;    return level;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  // Give the scale for drawing
+&nbsp;  private float getScale(Rectangle area) {
+<b class="fc">&nbsp;    return Math.min(</b>
+&nbsp;        ((float) area.width) / ((float) WIDTH), ((float) area.height) / ((float) HEIGHT));
+&nbsp;  }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-07 23:02</div>
+</div>
+</body>
+</html>
