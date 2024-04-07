@@ -8,7 +8,7 @@
 
 # hello teachers
 
-name: Maven Compile
+name: Maven Compile and Format
 
 on:
   push:
