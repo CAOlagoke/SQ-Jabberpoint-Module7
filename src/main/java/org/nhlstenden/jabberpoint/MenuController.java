@@ -1,13 +1,9 @@
 package org.nhlstenden.jabberpoint;
 
-import org.nhlstenden.jabberpoint.accessor.Accessor;
-import org.nhlstenden.jabberpoint.accessor.XMLAccessor;
-import org.nhlstenden.jabberpoint.util.Constants;
+import org.nhlstenden.jabberpoint.command.*;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 /**
  * The controller for the menu
@@ -31,68 +27,29 @@ public class MenuController extends MenuBar {
     this.parent = frame;
     this.presentation = presentation;
 
+    QuitCommand quitCommand = new QuitCommand(this.presentation);
+    GoToCommand goToCommand = new GoToCommand(this.presentation);
+    OpenFileCommand openFileCommand = new OpenFileCommand(this.presentation);
+    SaveFileCommand saveFileCommand = new SaveFileCommand(this.presentation);
+    NewFileCommand newFileCommand = new NewFileCommand(this.presentation);
+
     Menu fileMenu = new Menu("File");
-    fileMenu.add(this.createMenuItem("Open", e -> this.openFile(), 'O'));
-    fileMenu.add(this.createMenuItem("New", e -> this.newFile(), 'N'));
-    fileMenu.add(this.createMenuItem("Save", e -> this.saveFile(), 'S'));
+    fileMenu.add(this.createMenuItem("Open", e -> openFileCommand.execute(), 'O'));
+    fileMenu.add(this.createMenuItem("New", e -> newFileCommand.execute(), 'N'));
+    fileMenu.add(this.createMenuItem("Save", e -> saveFileCommand.execute(), 'S'));
     fileMenu.addSeparator();
-    fileMenu.add(this.createMenuItem("Exit", e -> System.exit(0), 'X'));
+    fileMenu.add(this.createMenuItem("Exit", e -> quitCommand.execute()));
     this.add(fileMenu);
 
     Menu viewMenu = new Menu("View");
     viewMenu.add(this.createMenuItem("Next slide", e -> this.presentation.nextSlide()));
     viewMenu.add(this.createMenuItem("Previous slide", e -> this.presentation.prevSlide()));
-    viewMenu.add(this.createMenuItem("Go to...", e -> this.goToSlide(), 'G'));
+    viewMenu.add(this.createMenuItem("Go to...", e -> goToCommand.execute(), 'G'));
     this.add(viewMenu);
 
     Menu helpMenu = new Menu("Help");
     helpMenu.add(this.createMenuItem("About", e -> AboutBox.show(MenuController.this.parent), 'A'));
     this.setHelpMenu(helpMenu); // needed for portability (Motif, etc.).
-  }
-
-  // handlers for the menu items
-  // file operations
-  // TODO: perhaps refactor these into a separate class
-  private void openFile() {
-    MenuController.this.presentation.clear();
-    Accessor xmlAccessor = new XMLAccessor();
-    try {
-      xmlAccessor.loadFile(MenuController.this.presentation, Constants.TEST_FILE);
-      MenuController.this.presentation.setSlideNumber(0);
-    } catch (IOException exc) {
-      JOptionPane.showMessageDialog(
-          MenuController.this.parent,
-          Constants.IO_ERR + exc,
-          Constants.LOAD_ERR,
-          JOptionPane.ERROR_MESSAGE);
-    }
-    MenuController.this.parent.repaint();
-  }
-
-  private void newFile() {
-    MenuController.this.presentation.clear();
-    MenuController.this.parent.repaint();
-  }
-
-  private void saveFile() {
-    Accessor xmlAccessor = new XMLAccessor();
-    try {
-      xmlAccessor.saveFile(MenuController.this.presentation, Constants.DEFAULT_SAVE_PATH);
-    } catch (IOException exc) {
-      JOptionPane.showMessageDialog(
-          MenuController.this.parent,
-          Constants.IO_ERR + exc,
-          Constants.SAVE_ERR,
-          JOptionPane.ERROR_MESSAGE);
-    }
-  }
-
-  // slide operations
-
-  private void goToSlide() {
-    String pageNumberStr = JOptionPane.showInputDialog("Page number?");
-    int pageNumber = Integer.parseInt(pageNumberStr);
-    MenuController.this.presentation.setSlideNumber(pageNumber - 1);
   }
 
   // create a menu item

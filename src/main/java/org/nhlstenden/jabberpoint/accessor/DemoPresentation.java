@@ -32,7 +32,7 @@ class DemoPresentation extends Accessor {
     slide.addTextItem(3, "Quit: q or Q");
     presentation.append(slide);
 
-    slide = new Slide("Demonstration of levels and stijlen");
+    slide = new Slide("Demonstration of levels and styles");
     slide.addTextItem(1, "Level 1");
     slide.addTextItem(2, "Level 2");
     slide.addTextItem(1, "Again level 1");

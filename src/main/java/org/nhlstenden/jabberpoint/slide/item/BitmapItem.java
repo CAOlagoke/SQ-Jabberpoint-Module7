@@ -32,7 +32,6 @@ public class BitmapItem implements SlideItem {
   private final int level;
 
   public BitmapItem(int level, String imageName) {
-
     this.level = level;
     this.imageName = imageName;
 
@@ -59,7 +58,7 @@ public class BitmapItem implements SlideItem {
     this.bufferedImage = bufferedImage;
   }
 
-  // give the  bounding box of the image
+  // give the bounding box of the image
   public Rectangle getBoundingBox(
       Graphics graphics, ImageObserver observer, float scale, Style style) {
 
@@ -91,6 +90,6 @@ public class BitmapItem implements SlideItem {
   }
 
   public String toString() {
-    return "SlideItem.BitmapItem[" + this.getLevel() + "," + this.getImageName() + "]";
+    return "BitmapItem[" + this.getLevel() + "," + this.getImageName() + "]";
   }
 }

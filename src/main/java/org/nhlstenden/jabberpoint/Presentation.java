@@ -1,9 +1,9 @@
 package org.nhlstenden.jabberpoint;
 
+import java.util.ArrayList;
+import javax.swing.*;
 import org.nhlstenden.jabberpoint.slide.Slide;
 import org.nhlstenden.jabberpoint.slide.SlideViewerComponent;
-
-import java.util.ArrayList;
 
 /**
  * Presentation maintains the slides in the presentation.
@@ -38,6 +38,10 @@ public class Presentation {
     return this.showList.size();
   }
 
+  public SlideViewerComponent getParent() {
+    return this.slideViewComponent;
+  }
+
   public String getTitle() {
     return this.showTitle;
   }
@@ -57,29 +61,32 @@ public class Presentation {
 
   // change the current slide number and signal it to the window
   public void setSlideNumber(int number) {
-    this.currentSlideNumber = number;
-    if (this.slideViewComponent != null) {
-      this.slideViewComponent.update(this, this.getCurrentSlide());
+    if (number < 0 || number > (this.showList.size() - 1)) {
+      return;
     }
+
+    this.currentSlideNumber = number;
+
+    if (this.slideViewComponent == null) {
+      return;
+    }
+
+    this.slideViewComponent.update(this, this.getCurrentSlide());
   }
 
   // go to the previous slide unless your at the beginning of the presentation
   public void prevSlide() {
-    if (this.currentSlideNumber > 0) {
-      this.setSlideNumber(this.currentSlideNumber - 1);
-    }
+    this.setSlideNumber(this.currentSlideNumber - 1);
   }
 
   // go to the next slide unless your at the end of the presentation.
   public void nextSlide() {
-    if (this.currentSlideNumber < (this.showList.size() - 1)) {
-      this.setSlideNumber(this.currentSlideNumber + 1);
-    }
+    this.setSlideNumber(this.currentSlideNumber + 1);
   }
 
   // Delete the presentation to be ready for the next one.
-  void clear() {
-    this.showList = new ArrayList<Slide>();
+  public void clear() {
+    this.showList = new ArrayList<>();
     this.setSlideNumber(-1);
   }
 
@@ -88,7 +95,7 @@ public class Presentation {
     this.showList.add(slide);
   }
 
-  // Get a slide with a certain slidenumber
+  // Get a slide with a certain slide number
   public Slide getSlide(int number) {
     if (number < 0 || number >= this.getSize()) {
       return null;
