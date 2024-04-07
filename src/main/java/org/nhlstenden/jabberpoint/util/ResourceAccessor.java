@@ -1,19 +1,18 @@
 package org.nhlstenden.jabberpoint.util;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
 
 public class ResourceAccessor {
+  public static ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+
   public static InputStream getResource(String resource) {
     if (resource == null) {
       System.out.println("Resource file name is null.");
     }
     assert resource != null;
 
-    ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
     InputStream stream = classLoader.getResourceAsStream(resource);
 
     if (stream == null) {

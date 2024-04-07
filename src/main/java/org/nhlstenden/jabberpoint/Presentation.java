@@ -1,9 +1,10 @@
 package org.nhlstenden.jabberpoint;
 
+import java.util.ArrayList;
+import javax.swing.*;
 import org.nhlstenden.jabberpoint.slide.Slide;
 import org.nhlstenden.jabberpoint.slide.SlideViewerComponent;
-
-import java.util.ArrayList;
+import org.nhlstenden.jabberpoint.util.Constants;
 
 /**
  * Presentation maintains the slides in the presentation.
@@ -57,29 +58,53 @@ public class Presentation {
 
   // change the current slide number and signal it to the window
   public void setSlideNumber(int number) {
-    this.currentSlideNumber = number;
-    if (this.slideViewComponent != null) {
-      this.slideViewComponent.update(this, this.getCurrentSlide());
+    if (number < 0 || number > (this.showList.size() - 1)) {
+      return;
     }
+
+    this.currentSlideNumber = number;
+
+    if (this.slideViewComponent == null) {
+      return;
+    }
+
+    this.slideViewComponent.update(this, this.getCurrentSlide());
   }
 
   // go to the previous slide unless your at the beginning of the presentation
   public void prevSlide() {
-    if (this.currentSlideNumber > 0) {
-      this.setSlideNumber(this.currentSlideNumber - 1);
-    }
+    this.setSlideNumber(this.currentSlideNumber - 1);
   }
 
   // go to the next slide unless your at the end of the presentation.
   public void nextSlide() {
-    if (this.currentSlideNumber < (this.showList.size() - 1)) {
-      this.setSlideNumber(this.currentSlideNumber + 1);
+    this.setSlideNumber(this.currentSlideNumber + 1);
+  }
+
+  public void goToSlide() {
+    String pageNumberStr = JOptionPane.showInputDialog("Page number?");
+    int pageNumber = 0;
+
+    try {
+      pageNumber = Integer.parseInt(pageNumberStr);
+    } catch (NumberFormatException e) {
+      JOptionPane.showMessageDialog(
+          this.slideViewComponent, Constants.INT_ERR, Constants.JAB_ERR, JOptionPane.ERROR_MESSAGE);
+      return;
     }
+
+    if (pageNumber <= 0) {
+      JOptionPane.showMessageDialog(
+          this.slideViewComponent, Constants.INT_ERR, Constants.JAB_ERR, JOptionPane.ERROR_MESSAGE);
+      return;
+    }
+
+    this.setSlideNumber(pageNumber - 1);
   }
 
   // Delete the presentation to be ready for the next one.
   void clear() {
-    this.showList = new ArrayList<Slide>();
+    this.showList = new ArrayList<>();
     this.setSlideNumber(-1);
   }
 
@@ -88,7 +113,7 @@ public class Presentation {
     this.showList.add(slide);
   }
 
-  // Get a slide with a certain slidenumber
+  // Get a slide with a certain slide number
   public Slide getSlide(int number) {
     if (number < 0 || number >= this.getSize()) {
       return null;

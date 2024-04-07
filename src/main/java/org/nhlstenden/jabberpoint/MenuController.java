@@ -90,9 +90,7 @@ public class MenuController extends MenuBar {
   // slide operations
 
   private void goToSlide() {
-    String pageNumberStr = JOptionPane.showInputDialog("Page number?");
-    int pageNumber = Integer.parseInt(pageNumberStr);
-    MenuController.this.presentation.setSlideNumber(pageNumber - 1);
+    this.presentation.goToSlide();
   }
 
   // create a menu item
