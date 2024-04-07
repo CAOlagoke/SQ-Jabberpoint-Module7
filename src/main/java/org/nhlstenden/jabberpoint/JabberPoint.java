@@ -1,0 +1,48 @@
+package org.nhlstenden.jabberpoint;
+
+import javax.swing.JOptionPane;
+
+import org.nhlstenden.jabberpoint.accessor.Accessor;
+import org.nhlstenden.jabberpoint.accessor.XMLAccessor;
+import org.nhlstenden.jabberpoint.slide.SlideViewerFrame;
+import org.nhlstenden.jabberpoint.slide.Style;
+import org.nhlstenden.jabberpoint.util.Constants;
+
+import java.io.IOException;
+
+/**
+ * JabberPoint Main Programma
+ *
+ * <p>This program is distributed under the terms of the accompanying COPYRIGHT.txt file (which is
+ * NOT the GNU General Public License). Please read it. Your use of the software constitutes
+ * acceptance of the terms in the COPYRIGHT.txt file.
+ *
+ * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
+ * @version 1.1 2002/12/17 Gert Florijn
+ * @version 1.2 2003/11/19 Sylvia Stuurman
+ * @version 1.3 2004/08/17 Sylvia Stuurman
+ * @version 1.4 2007/07/16 Sylvia Stuurman
+ * @version 1.5 2010/03/03 Sylvia Stuurman
+ * @version 1.6 2014/05/16 Sylvia Stuurman
+ */
+public class JabberPoint {
+  public static void main(String[] argv) {
+    Style.createStyles();
+    Constants.loadConstants();
+
+    Presentation presentation = new Presentation();
+    new SlideViewerFrame(Constants.TITLE_FRAME, presentation);
+
+    try {
+      if (argv.length == 0) { // een demo presentatie
+        Accessor.getDemoAccessor().loadFile(presentation, "");
+      } else {
+        new XMLAccessor().loadFile(presentation, argv[0]);
+      }
+      presentation.setSlideNumber(0);
+    } catch (IOException ex) {
+      JOptionPane.showMessageDialog(
+          null, Constants.IO_ERR + ex, Constants.JAB_ERR, JOptionPane.ERROR_MESSAGE);
+    }
+  }
+}

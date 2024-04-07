@@ -8,7 +8,7 @@
 
 # hello teachers
 
-name: Coverage test
+name: Maven Compile and Format
 
 on:
   push:
@@ -31,3 +31,9 @@ jobs:
 
       - name: Maven compile
         run: mvn compile
+
+      - name: Format and commit
+        uses: axel-op/googlejavaformat-action@v3
+        with:
+          args: "--skip-sorting-imports --replace"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
