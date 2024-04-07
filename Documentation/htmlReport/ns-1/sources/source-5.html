@@ -1,0 +1,226 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Presentation</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.nhlstenden.jabberpoint</a>
+</div>
+
+<h1>Coverage Summary for Class: Presentation (org.nhlstenden.jabberpoint)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Presentation</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    86.7%
+  </span>
+  <span class="absValue">
+    (13/15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (8/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    85.2%
+  </span>
+  <span class="absValue">
+    (23/27)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package org.nhlstenden.jabberpoint;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import javax.swing.*;
+&nbsp;import org.nhlstenden.jabberpoint.slide.Slide;
+&nbsp;import org.nhlstenden.jabberpoint.slide.SlideViewerComponent;
+&nbsp;
+&nbsp;/**
+&nbsp; * Presentation maintains the slides in the presentation.
+&nbsp; *
+&nbsp; * &lt;p&gt;There is only instance of this class.
+&nbsp; *
+&nbsp; * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
+&nbsp; * @version 1.1 2002/12/17 Gert Florijn
+&nbsp; * @version 1.2 2003/11/19 Sylvia Stuurman
+&nbsp; * @version 1.3 2004/08/17 Sylvia Stuurman
+&nbsp; * @version 1.4 2007/07/16 Sylvia Stuurman
+&nbsp; * @version 1.5 2010/03/03 Sylvia Stuurman
+&nbsp; * @version 1.6 2014/05/16 Sylvia Stuurman
+&nbsp; */
+&nbsp;public class Presentation {
+&nbsp;  private String showTitle;
+<b class="fc">&nbsp;  private ArrayList&lt;Slide&gt; showList = null;</b>
+<b class="fc">&nbsp;  private int currentSlideNumber = 0;</b>
+&nbsp;  private SlideViewerComponent slideViewComponent;
+&nbsp;
+<b class="fc">&nbsp;  public Presentation() {</b>
+<b class="fc">&nbsp;    this.slideViewComponent = null;</b>
+<b class="fc">&nbsp;    this.clear();</b>
+&nbsp;  }
+&nbsp;
+<b class="nc">&nbsp;  public Presentation(SlideViewerComponent slideViewerComponent) {</b>
+<b class="nc">&nbsp;    this.slideViewComponent = slideViewerComponent;</b>
+<b class="nc">&nbsp;    this.clear();</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public int getSize() {
+<b class="fc">&nbsp;    return this.showList.size();</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public SlideViewerComponent getParent() {
+<b class="nc">&nbsp;    return this.slideViewComponent;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public String getTitle() {
+<b class="fc">&nbsp;    return this.showTitle;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public void setTitle(String nt) {
+<b class="fc">&nbsp;    this.showTitle = nt;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public void setShowView(SlideViewerComponent slideViewerComponent) {
+<b class="fc">&nbsp;    this.slideViewComponent = slideViewerComponent;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  // give the number of the current slide
+&nbsp;  public int getSlideNumber() {
+<b class="fc">&nbsp;    return this.currentSlideNumber;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  // change the current slide number and signal it to the window
+&nbsp;  public void setSlideNumber(int number) {
+<b class="pc">&nbsp;    if (number &lt; 0 || number &gt; (this.showList.size() - 1)) {</b>
+&nbsp;      return;
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    this.currentSlideNumber = number;</b>
+&nbsp;
+<b class="fc">&nbsp;    if (this.slideViewComponent == null) {</b>
+&nbsp;      return;
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    this.slideViewComponent.update(this, this.getCurrentSlide());</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  // go to the previous slide unless your at the beginning of the presentation
+&nbsp;  public void prevSlide() {
+<b class="fc">&nbsp;    this.setSlideNumber(this.currentSlideNumber - 1);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  // go to the next slide unless your at the end of the presentation.
+&nbsp;  public void nextSlide() {
+<b class="fc">&nbsp;    this.setSlideNumber(this.currentSlideNumber + 1);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  // Delete the presentation to be ready for the next one.
+&nbsp;  public void clear() {
+<b class="fc">&nbsp;    this.showList = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;    this.setSlideNumber(-1);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  // Add a slide to the presentation
+&nbsp;  public void append(Slide slide) {
+<b class="fc">&nbsp;    this.showList.add(slide);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  // Get a slide with a certain slide number
+&nbsp;  public Slide getSlide(int number) {
+<b class="pc">&nbsp;    if (number &lt; 0 || number &gt;= this.getSize()) {</b>
+<b class="fc">&nbsp;      return null;</b>
+&nbsp;    }
+<b class="fc">&nbsp;    return this.showList.get(number);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  // Give the current slide
+&nbsp;  public Slide getCurrentSlide() {
+<b class="fc">&nbsp;    return this.getSlide(this.currentSlideNumber);</b>
+&nbsp;  }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-07 23:02</div>
+</div>
+</body>
+</html>

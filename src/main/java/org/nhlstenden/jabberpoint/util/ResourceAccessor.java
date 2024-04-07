@@ -10,8 +10,9 @@ public class ResourceAccessor {
   public static InputStream getResource(String resource) {
     if (resource == null) {
       System.out.println("Resource file name is null.");
+      System.out.println(Constants.RESOURCE_LOADING_ERR);
+      System.exit(0);
     }
-    assert resource != null;
 
     InputStream stream = classLoader.getResourceAsStream(resource);
 

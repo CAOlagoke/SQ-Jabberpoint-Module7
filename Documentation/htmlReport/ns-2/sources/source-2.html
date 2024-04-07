@@ -1,0 +1,161 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > DemoPresentation</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.nhlstenden.jabberpoint.accessor</a>
+</div>
+
+<h1>Coverage Summary for Class: DemoPresentation (org.nhlstenden.jabberpoint.accessor)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">DemoPresentation</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (31/31)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package org.nhlstenden.jabberpoint.accessor;
+&nbsp;
+&nbsp;import org.nhlstenden.jabberpoint.Presentation;
+&nbsp;import org.nhlstenden.jabberpoint.slide.Slide;
+&nbsp;
+&nbsp;/**
+&nbsp; * A built in demo-presentation
+&nbsp; *
+&nbsp; * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
+&nbsp; * @version 1.1 2002/12/17 Gert Florijn
+&nbsp; * @version 1.2 2003/11/19 Sylvia Stuurman
+&nbsp; * @version 1.3 2004/08/17 Sylvia Stuurman
+&nbsp; * @version 1.4 2007/07/16 Sylvia Stuurman
+&nbsp; * @version 1.5 2010/03/03 Sylvia Stuurman
+&nbsp; * @version 1.6 2014/05/16 Sylvia Stuurman
+&nbsp; */
+<b class="fc">&nbsp;class DemoPresentation extends Accessor {</b>
+&nbsp;
+&nbsp;  public void loadFile(Presentation presentation, String unusedFilename) {
+<b class="fc">&nbsp;    presentation.setTitle(&quot;Demo Presentation&quot;);</b>
+&nbsp;    Slide slide;
+<b class="fc">&nbsp;    slide = new Slide(&quot;JabberPoint&quot;);</b>
+<b class="fc">&nbsp;    slide.addTextItem(1, &quot;The Java Presentation Tool&quot;);</b>
+<b class="fc">&nbsp;    slide.addTextItem(2, &quot;Copyright (c) 1996-2000: Ian Darwin&quot;);</b>
+<b class="fc">&nbsp;    slide.addTextItem(2, &quot;Copyright (c) 2000-now:&quot;);</b>
+<b class="fc">&nbsp;    slide.addTextItem(2, &quot;Gert Florijn andn Sylvia Stuurman&quot;);</b>
+<b class="fc">&nbsp;    slide.addTextItem(4, &quot;Starting JabberPoint without a filename&quot;);</b>
+<b class="fc">&nbsp;    slide.addTextItem(4, &quot;shows this presentation&quot;);</b>
+<b class="fc">&nbsp;    slide.addTextItem(1, &quot;Navigate:&quot;);</b>
+<b class="fc">&nbsp;    slide.addTextItem(3, &quot;Next slide: PgDn or Enter&quot;);</b>
+<b class="fc">&nbsp;    slide.addTextItem(3, &quot;Previous slide: PgUp or up-arrow&quot;);</b>
+<b class="fc">&nbsp;    slide.addTextItem(3, &quot;Quit: q or Q&quot;);</b>
+<b class="fc">&nbsp;    presentation.append(slide);</b>
+&nbsp;
+<b class="fc">&nbsp;    slide = new Slide(&quot;Demonstration of levels and styles&quot;);</b>
+<b class="fc">&nbsp;    slide.addTextItem(1, &quot;Level 1&quot;);</b>
+<b class="fc">&nbsp;    slide.addTextItem(2, &quot;Level 2&quot;);</b>
+<b class="fc">&nbsp;    slide.addTextItem(1, &quot;Again level 1&quot;);</b>
+<b class="fc">&nbsp;    slide.addTextItem(1, &quot;Level 1 has style number 1&quot;);</b>
+<b class="fc">&nbsp;    slide.addTextItem(2, &quot;Level 2 has style number  2&quot;);</b>
+<b class="fc">&nbsp;    slide.addTextItem(3, &quot;This is how level 3 looks like&quot;);</b>
+<b class="fc">&nbsp;    slide.addTextItem(4, &quot;And this is level 4&quot;);</b>
+<b class="fc">&nbsp;    presentation.append(slide);</b>
+&nbsp;
+<b class="fc">&nbsp;    slide = new Slide(&quot;The third slide&quot;);</b>
+<b class="fc">&nbsp;    slide.addTextItem(1, &quot;To open a new presentation,&quot;);</b>
+<b class="fc">&nbsp;    slide.addTextItem(2, &quot;use File-&gt;Open from the menu.&quot;);</b>
+<b class="fc">&nbsp;    slide.addTextItem(1, &quot; &quot;);</b>
+<b class="fc">&nbsp;    slide.addTextItem(1, &quot;This is the end of the presentation.&quot;);</b>
+<b class="fc">&nbsp;    slide.addBitmapItem(1, &quot;JabberPoint.jpg&quot;);</b>
+<b class="fc">&nbsp;    presentation.append(slide);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public void saveFile(Presentation presentation, String unusedFilename) {
+<b class="fc">&nbsp;    throw new IllegalStateException(&quot;Save As-&gt;Demo! called&quot;);</b>
+&nbsp;  }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-07 23:02</div>
+</div>
+</body>
+</html>

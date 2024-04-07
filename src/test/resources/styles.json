@@ -1,0 +1,7 @@
+[
+  {"indent": 0, "color": "#FF0000", "fontSize": 48, "leading": 20},
+  {"indent": 20, "color": "#0000FF", "fontSize": 40, "leading": 10},
+  {"indent": 50, "color": "#000000", "fontSize": 36, "leading": 10},
+  {"indent": 70, "color": "#000000", "fontSize": 30, "leading": 10},
+  {"indent": 90, "color": "#000000", "fontSize": 24, "leading": 10}
+]

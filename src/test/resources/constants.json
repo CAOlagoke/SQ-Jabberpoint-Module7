@@ -1,0 +1,10 @@
+{
+  "testFile": "test.xml",
+  "defaultSavePath": "dump.xml",
+  "exceptionIO": "IO Exception: ",
+  "errorLoadingFile": "Load Error",
+  "errorSavingFile": "Save Error",
+  "errorGeneric": "Jabberpoint Error",
+  "titleFrame": "Jabberpoint 1.6 - OU version",
+  "errorParsingInt": "Error parsing integer. Are you sure you entered a positive number?"
+}

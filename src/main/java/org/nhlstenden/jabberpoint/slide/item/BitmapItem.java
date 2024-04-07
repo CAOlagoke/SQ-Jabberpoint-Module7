@@ -90,6 +90,6 @@ public class BitmapItem implements SlideItem {
   }
 
   public String toString() {
-    return "SlideItem.BitmapItem[" + this.getLevel() + "," + this.getImageName() + "]";
+    return "BitmapItem[" + this.getLevel() + "," + this.getImageName() + "]";
   }
 }

@@ -1,0 +1,99 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > SlideItem</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.nhlstenden.jabberpoint.slide.item</a>
+</div>
+
+<h1>Coverage Summary for Class: SlideItem (org.nhlstenden.jabberpoint.slide.item)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">SlideItem</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package org.nhlstenden.jabberpoint.slide.item;
+&nbsp;
+&nbsp;import org.nhlstenden.jabberpoint.slide.Style;
+&nbsp;
+&nbsp;import java.awt.Rectangle;
+&nbsp;import java.awt.Graphics;
+&nbsp;import java.awt.image.ImageObserver;
+&nbsp;
+&nbsp;/**
+&nbsp; * The abstract class for an item on a slide
+&nbsp; *
+&nbsp; * &lt;p&gt;
+&nbsp; *
+&nbsp; * &lt;p&gt;All SlideItems have drawingfunctionality.
+&nbsp; *
+&nbsp; * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
+&nbsp; * @version 1.1 2002/12/17 Gert Florijn
+&nbsp; * @version 1.2 2003/11/19 Sylvia Stuurman
+&nbsp; * @version 1.3 2004/08/17 Sylvia Stuurman
+&nbsp; * @version 1.4 2007/07/16 Sylvia Stuurman
+&nbsp; * @version 1.5 2010/03/03 Sylvia Stuurman
+&nbsp; * @version 1.6 2014/05/16 Sylvia Stuurman
+&nbsp; */
+&nbsp;public interface SlideItem {
+&nbsp;
+&nbsp;  // Gets the bounding box
+&nbsp;  Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale, Style style);
+&nbsp;
+&nbsp;  // Draws the slideItem
+&nbsp;  void draw(int x, int y, float scale, Graphics g, Style style, ImageObserver observer);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-07 23:02</div>
+</div>
+</body>
+</html>
