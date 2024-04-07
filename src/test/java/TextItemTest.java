@@ -1,4 +1,4 @@
-import SlideItemFactory.TextItem;
+import org.nhlstenden.jabberpoint.slide.item.TextItem;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

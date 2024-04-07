@@ -1,4 +1,4 @@
-package SlideItemFactory;
+package org.nhlstenden.jabberpoint.slide;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

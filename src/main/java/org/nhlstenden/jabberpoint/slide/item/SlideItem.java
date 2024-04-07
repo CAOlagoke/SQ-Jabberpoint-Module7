@@ -1,4 +1,6 @@
-package SlideItemFactory;
+package org.nhlstenden.jabberpoint.slide.item;
+
+import org.nhlstenden.jabberpoint.slide.Style;
 
 import java.awt.Rectangle;
 import java.awt.Graphics;
@@ -19,7 +21,7 @@ import java.awt.image.ImageObserver;
  * @version 1.5 2010/03/03 Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
-interface SlideItem {
+public interface SlideItem {
 
   // Gets the bounding box
   Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale, Style style);

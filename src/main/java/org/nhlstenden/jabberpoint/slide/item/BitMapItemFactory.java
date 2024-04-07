@@ -1,4 +1,4 @@
-package SlideItemFactory;
+package org.nhlstenden.jabberpoint.slide.item;
 
 public class BitMapItemFactory extends SlideItemFactory {
 

@@ -1,3 +1,9 @@
+package org.nhlstenden.jabberpoint.slide;
+
+import org.nhlstenden.jabberpoint.KeyController;
+import org.nhlstenden.jabberpoint.MenuController;
+import org.nhlstenden.jabberpoint.Presentation;
+
 import java.awt.Dimension;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowAdapter;
@@ -25,22 +31,22 @@ public class SlideViewerFrame extends JFrame {
     super(title);
     SlideViewerComponent slideViewerComponent = new SlideViewerComponent(presentation, this);
     presentation.setShowView(slideViewerComponent);
-    setupWindow(slideViewerComponent, presentation);
+    this.setupWindow(slideViewerComponent, presentation);
   }
 
   // Setup GUI
   public void setupWindow(SlideViewerComponent slideViewerComponent, Presentation presentation) {
-    setTitle(JABTITLE);
-    addWindowListener(
+    this.setTitle(JABTITLE);
+    this.addWindowListener(
         new WindowAdapter() {
           public void windowClosing(WindowEvent e) {
             System.exit(0);
           }
         });
-    getContentPane().add(slideViewerComponent);
-    addKeyListener(new KeyController(presentation)); // add a controller
-    setMenuBar(new MenuController(this, presentation)); // add another controller
-    setSize(new Dimension(WIDTH, HEIGHT)); // Same sizes as Slide has.
-    setVisible(true);
+    this.getContentPane().add(slideViewerComponent);
+    this.addKeyListener(new KeyController(presentation)); // add a controller
+    this.setMenuBar(new MenuController(this, presentation)); // add another controller
+    this.setSize(new Dimension(WIDTH, HEIGHT)); // Same sizes as Slide has.
+    this.setVisible(true);
   }
 }

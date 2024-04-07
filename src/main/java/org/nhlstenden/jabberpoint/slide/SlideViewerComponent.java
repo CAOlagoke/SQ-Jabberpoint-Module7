@@ -1,4 +1,6 @@
-import SlideItemFactory.Slide;
+package org.nhlstenden.jabberpoint.slide;
+
+import org.nhlstenden.jabberpoint.Presentation;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -9,7 +11,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 
 /**
- * SlideViewerComponent is a graphical component that can show slides.
+ * org.nhlstenden.jabberpoint.slide.SlideViewerComponent is a graphical component that can show slides.
  *
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
  * @version 1.1 2002/12/17 Gert Florijn
@@ -37,9 +39,9 @@ public class SlideViewerComponent extends JComponent {
   private static final int YPOS = 20;
 
   public SlideViewerComponent(Presentation pres, JFrame frame) {
-    setBackground(BGCOLOR);
-    presentation = pres;
-    labelFont = new Font(FONTNAME, FONTSTYLE, FONTHEIGHT);
+    this.setBackground(BGCOLOR);
+    this.presentation = pres;
+    this.labelFont = new Font(FONTNAME, FONTSTYLE, FONTHEIGHT);
     this.frame = frame;
   }
 
@@ -49,29 +51,29 @@ public class SlideViewerComponent extends JComponent {
 
   public void update(Presentation presentation, Slide data) {
     if (data == null) {
-      repaint();
+      this.repaint();
       return;
     }
     this.presentation = presentation;
     this.slide = data;
-    repaint();
-    frame.setTitle(presentation.getTitle());
+    this.repaint();
+    this.frame.setTitle(presentation.getTitle());
   }
 
   // draw the slide
   public void paintComponent(Graphics g) {
     g.setColor(BGCOLOR);
-    g.fillRect(0, 0, getSize().width, getSize().height);
-    if (presentation.getSlideNumber() < 0 || slide == null) {
+    g.fillRect(0, 0, this.getSize().width, this.getSize().height);
+    if (this.presentation.getSlideNumber() < 0 || this.slide == null) {
       return;
     }
-    g.setFont(labelFont);
+    g.setFont(this.labelFont);
     g.setColor(COLOR);
     g.drawString(
-        "Slide " + (1 + presentation.getSlideNumber()) + " of " + presentation.getSize(),
+        "Slide " + (1 + this.presentation.getSlideNumber()) + " of " + this.presentation.getSize(),
         XPOS,
         YPOS);
-    Rectangle area = new Rectangle(0, YPOS, getWidth(), (getHeight() - YPOS));
-    slide.draw(g, area, this);
+    Rectangle area = new Rectangle(0, YPOS, this.getWidth(), (this.getHeight() - YPOS));
+    this.slide.draw(g, area, this);
   }
 }

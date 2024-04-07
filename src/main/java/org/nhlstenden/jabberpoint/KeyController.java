@@ -1,8 +1,10 @@
+package org.nhlstenden.jabberpoint;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyAdapter;
 
 /**
- * This is the KeyController (KeyListener)
+ * This is the org.nhlstenden.jabberpoint.KeyController (KeyListener)
  *
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
  * @version 1.1 2002/12/17 Gert Florijn
@@ -13,10 +15,10 @@ import java.awt.event.KeyAdapter;
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
 public class KeyController extends KeyAdapter {
-  private Presentation presentation; // Commands are given to the presentation
+  private final Presentation presentation; // Commands are given to the presentation
 
   public KeyController(Presentation p) {
-    presentation = p;
+    this.presentation = p;
   }
 
   public void keyPressed(KeyEvent keyEvent) {
@@ -25,12 +27,12 @@ public class KeyController extends KeyAdapter {
       case KeyEvent.VK_DOWN:
       case KeyEvent.VK_ENTER:
       case '+':
-        presentation.nextSlide();
+        this.presentation.nextSlide();
         break;
       case KeyEvent.VK_PAGE_UP:
       case KeyEvent.VK_UP:
       case '-':
-        presentation.prevSlide();
+        this.presentation.prevSlide();
         //				CopyCommand.execute();
         break;
       case 'q':

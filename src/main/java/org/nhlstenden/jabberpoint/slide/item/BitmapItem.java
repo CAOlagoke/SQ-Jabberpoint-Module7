@@ -1,4 +1,6 @@
-package SlideItemFactory;
+package org.nhlstenden.jabberpoint.slide.item;
+
+import org.nhlstenden.jabberpoint.slide.Style;
 
 import java.awt.Rectangle;
 import java.awt.Graphics;
@@ -26,8 +28,8 @@ import java.io.IOException;
 public class BitmapItem implements SlideItem {
 
   private BufferedImage bufferedImage;
-  private String imageName;
-  private int level;
+  private final String imageName;
+  private final int level;
 
   public BitmapItem(int level, String imageName) {
 
@@ -35,7 +37,7 @@ public class BitmapItem implements SlideItem {
     this.imageName = imageName;
 
     try {
-      bufferedImage = ImageIO.read(new File(imageName));
+      this.bufferedImage = ImageIO.read(new File(imageName));
     } catch (IOException e) {
       System.err.println("File " + imageName + " not found");
     }
@@ -63,10 +65,10 @@ public class BitmapItem implements SlideItem {
 
     int xCoordinate = (int) (style.getIndent() * scale);
     int yCoordiante = 0;
-    int width = (int) (getBufferedImage().getWidth(observer) * scale);
+    int width = (int) (this.getBufferedImage().getWidth(observer) * scale);
     int height =
         ((int) (style.getLeading() * scale))
-            + (int) (getBufferedImage().getHeight(observer) * scale);
+            + (int) (this.getBufferedImage().getHeight(observer) * scale);
 
     return new Rectangle(xCoordinate, yCoordiante, width, height);
   }
@@ -85,10 +87,10 @@ public class BitmapItem implements SlideItem {
     int width = (int) (this.getBufferedImage().getWidth(observer) * scale);
     int height = (int) (this.getBufferedImage().getHeight(observer) * scale);
 
-    graphics.drawImage(getBufferedImage(), x, y, width, height, observer);
+    graphics.drawImage(this.getBufferedImage(), x, y, width, height, observer);
   }
 
   public String toString() {
-    return "SlideItem.BitmapItem[" + getLevel() + "," + getImageName() + "]";
+    return "SlideItem.BitmapItem[" + this.getLevel() + "," + this.getImageName() + "]";
   }
 }

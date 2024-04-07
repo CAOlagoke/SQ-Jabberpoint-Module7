@@ -1,9 +1,9 @@
-package SlideItemFactory;
+package org.nhlstenden.jabberpoint.slide.item;
 
 public class TextItemFactory extends SlideItemFactory {
 
   @Override
-  SlideItem createSlideItem(int level, String value) {
+  public SlideItem createSlideItem(int level, String value) {
     return new TextItem(level, value);
   }
 }

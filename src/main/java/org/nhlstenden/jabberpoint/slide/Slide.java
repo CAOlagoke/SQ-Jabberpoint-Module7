@@ -1,4 +1,6 @@
-package SlideItemFactory;
+package org.nhlstenden.jabberpoint.slide;
+
+import org.nhlstenden.jabberpoint.slide.item.*;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -45,16 +47,16 @@ public class Slide {
   // Create SlideItem.TextItem of String, and add the SlideItem.TextItem
   public void addTextItem(int level, String message) {
     SlideItemFactory textItemFactory = new TextItemFactory();
-    addSlideItem(textItemFactory.createSlideItem(level, message));
+    this.addSlideItem(textItemFactory.createSlideItem(level, message));
   }
 
   public void addBitmapItem(int level, String imageName) {
     SlideItemFactory bitmapItemFactory = new BitMapItemFactory();
-    addSlideItem(bitmapItemFactory.createSlideItem(level, imageName));
+    this.addSlideItem(bitmapItemFactory.createSlideItem(level, imageName));
   }
 
   public SlideItem getSlideItem(int position) {
-    return slideItems.elementAt(position);
+    return this.slideItems.elementAt(position);
   }
 
   // returns all SlideItems in a Vector
@@ -62,23 +64,23 @@ public class Slide {
     return this.slideItems;
   }
 
-  // give the size of the SlideItemFactory.Slide
+  // give the size of the org.nhlstenden.jabberpoint.slide.Slide
   public int getSizeOfSlideItems() {
     return this.slideItems.size();
   }
 
   // draw the slide
   public void draw(Graphics graphics, Rectangle area, ImageObserver view) {
-    float scale = getScale(area);
+    float scale = this.getScale(area);
     int xCoordinate = area.x;
     int yCoordinate = area.y;
 
-    yCoordinate += drawTitle(graphics, xCoordinate, yCoordinate, view, scale);
+    yCoordinate += this.drawTitle(graphics, xCoordinate, yCoordinate, view, scale);
 
     for (int i = 0; i < this.getSizeOfSlideItems(); i++) {
-      SlideItem slideItem = getSlideItems().elementAt(i);
+      SlideItem slideItem = this.getSlideItems().elementAt(i);
 
-      int slideItemLevel = getLevel(slideItem);
+      int slideItemLevel = this.getLevel(slideItem);
       //   System.out.println("Text of slideItem, color" + i + ": " + getText(slideItem));
       Style style = Style.getStyle(slideItemLevel);
       slideItem.draw(xCoordinate, yCoordinate, scale, graphics, style, view);
@@ -92,7 +94,7 @@ public class Slide {
     int defaultLevel = 0;
     SlideItemFactory textItemFactory = new TextItemFactory();
     Style style = Style.getStyle(defaultLevel);
-    SlideItem slideItem = textItemFactory.createSlideItem(defaultLevel, getTitle());
+    SlideItem slideItem = textItemFactory.createSlideItem(defaultLevel, this.getTitle());
 
     slideItem.draw(x, y, scale, g, style, view);
 

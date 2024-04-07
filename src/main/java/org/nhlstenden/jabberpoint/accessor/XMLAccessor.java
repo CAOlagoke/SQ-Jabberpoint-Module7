@@ -1,3 +1,5 @@
+package org.nhlstenden.jabberpoint.accessor;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -7,8 +9,10 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import SlideItemFactory.Slide;
-import SlideItemFactory.*;
+import org.nhlstenden.jabberpoint.Presentation;
+import org.nhlstenden.jabberpoint.slide.Slide;
+import org.nhlstenden.jabberpoint.slide.item.BitmapItem;
+import org.nhlstenden.jabberpoint.slide.item.TextItem;
 import org.xml.sax.SAXException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -59,24 +63,24 @@ public class XMLAccessor extends Accessor {
       DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
       Document document = builder.parse(new File(filename)); // Create a JDOM document
       Element doc = document.getDocumentElement();
-      presentation.setTitle(getTitle(doc, SHOWTITLE));
+      presentation.setTitle(this.getTitle(doc, SHOWTITLE));
 
       NodeList slides = doc.getElementsByTagName(SLIDE);
       max = slides.getLength();
       for (slideNumber = 0; slideNumber < max; slideNumber++) {
         Element xmlSlide = (Element) slides.item(slideNumber);
-        Slide slide = new Slide(getTitle(xmlSlide, SLIDETITLE));
+        Slide slide = new Slide(this.getTitle(xmlSlide, SLIDETITLE));
         presentation.append(slide);
 
         NodeList slideItems = xmlSlide.getElementsByTagName(ITEM);
         maxItems = slideItems.getLength();
         for (itemNumber = 0; itemNumber < maxItems; itemNumber++) {
           Element item = (Element) slideItems.item(itemNumber);
-          loadSlideItem(slide, item);
+          this.loadSlideItem(slide, item);
         }
       }
     } catch (IOException iox) {
-      System.err.println(iox.toString());
+      System.err.println(iox);
     } catch (SAXException sax) {
       System.err.println(sax.getMessage());
     } catch (ParserConfigurationException pcx) {

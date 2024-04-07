@@ -1,3 +1,8 @@
+package org.nhlstenden.jabberpoint;
+
+import org.nhlstenden.jabberpoint.accessor.Accessor;
+import org.nhlstenden.jabberpoint.accessor.XMLAccessor;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -92,14 +97,14 @@ public class MenuController extends MenuBar {
   }
 
   // create a menu item
-  protected MenuItem createMenuItem(String name, ActionListener action) {
+  public MenuItem createMenuItem(String name, ActionListener action) {
     MenuItem menuItem;
     menuItem = new MenuItem(name);
     menuItem.addActionListener(action);
     return menuItem;
   }
 
-  protected MenuItem createMenuItem(String name, ActionListener action, char shortcutKey) {
+  public MenuItem createMenuItem(String name, ActionListener action, char shortcutKey) {
     MenuItem menuItem;
     menuItem = new MenuItem(name, new MenuShortcut(shortcutKey));
     menuItem.addActionListener(action);

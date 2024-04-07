@@ -1,6 +1,11 @@
+package org.nhlstenden.jabberpoint;
+
 import javax.swing.JOptionPane;
 
-import SlideItemFactory.Style;
+import org.nhlstenden.jabberpoint.accessor.Accessor;
+import org.nhlstenden.jabberpoint.accessor.XMLAccessor;
+import org.nhlstenden.jabberpoint.slide.SlideViewerFrame;
+import org.nhlstenden.jabberpoint.slide.Style;
 
 import java.io.IOException;
 
@@ -25,7 +30,7 @@ public class JabberPoint {
   protected static final String JABVERSION = "Jabberpoint 1.6 - OU version";
 
   /** Het Main Programma */
-  public static void main(String argv[]) {
+  public static void main(String[] argv) {
 
     Style.createStyles();
     Presentation presentation = new Presentation();
