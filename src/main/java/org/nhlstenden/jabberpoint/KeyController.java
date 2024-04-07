@@ -1,7 +1,8 @@
 package org.nhlstenden.jabberpoint;
 
-import java.awt.event.KeyEvent;
 import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import org.nhlstenden.jabberpoint.command.QuitCommand;
 
 /**
  * This is the org.nhlstenden.jabberpoint.KeyController (KeyListener)
@@ -15,32 +16,43 @@ import java.awt.event.KeyAdapter;
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
 public class KeyController extends KeyAdapter {
-  private final Presentation presentation; // Commands are given to the presentation
+  private final Presentation presentation;
 
   public KeyController(Presentation p) {
     this.presentation = p;
   }
 
   public void keyPressed(KeyEvent keyEvent) {
-    switch (keyEvent.getKeyCode()) {
-      case KeyEvent.VK_PAGE_DOWN:
-      case KeyEvent.VK_DOWN:
-      case KeyEvent.VK_ENTER:
-      case '+':
-        this.presentation.nextSlide();
-        break;
-      case KeyEvent.VK_PAGE_UP:
-      case KeyEvent.VK_UP:
-      case '-':
-        this.presentation.prevSlide();
-        //				CopyCommand.execute();
-        break;
-      case 'q':
-      case 'Q':
-        System.exit(0);
-        break; // Probably never reached!!
-      default:
-        break;
+    int keyCode = keyEvent.getKeyCode();
+    QuitCommand quitCommand = new QuitCommand(this.presentation);
+
+    if (this.isNextSlideKey(keyCode)) {
+      this.presentation.nextSlide();
+      return;
     }
+
+    if (this.isPrevSlideKey(keyCode)) {
+      this.presentation.prevSlide();
+      return;
+    }
+
+    if (this.isQuitKey(keyCode)) {
+      quitCommand.execute();
+    }
+  }
+
+  private boolean isNextSlideKey(int keyCode) {
+    return keyCode == KeyEvent.VK_PAGE_DOWN
+        || keyCode == KeyEvent.VK_DOWN
+        || keyCode == KeyEvent.VK_ENTER
+        || keyCode == '+';
+  }
+
+  private boolean isPrevSlideKey(int keyCode) {
+    return keyCode == KeyEvent.VK_PAGE_UP || keyCode == KeyEvent.VK_UP || keyCode == '-';
+  }
+
+  private boolean isQuitKey(int keyCode) {
+    return keyCode == 'q' || keyCode == 'Q';
   }
 }

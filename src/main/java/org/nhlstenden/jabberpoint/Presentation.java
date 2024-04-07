@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import javax.swing.*;
 import org.nhlstenden.jabberpoint.slide.Slide;
 import org.nhlstenden.jabberpoint.slide.SlideViewerComponent;
-import org.nhlstenden.jabberpoint.util.Constants;
 
 /**
  * Presentation maintains the slides in the presentation.
@@ -37,6 +36,10 @@ public class Presentation {
 
   public int getSize() {
     return this.showList.size();
+  }
+
+  public SlideViewerComponent getParent() {
+    return this.slideViewComponent;
   }
 
   public String getTitle() {
@@ -81,29 +84,8 @@ public class Presentation {
     this.setSlideNumber(this.currentSlideNumber + 1);
   }
 
-  public void goToSlide() {
-    String pageNumberStr = JOptionPane.showInputDialog("Page number?");
-    int pageNumber = 0;
-
-    try {
-      pageNumber = Integer.parseInt(pageNumberStr);
-    } catch (NumberFormatException e) {
-      JOptionPane.showMessageDialog(
-          this.slideViewComponent, Constants.INT_ERR, Constants.JAB_ERR, JOptionPane.ERROR_MESSAGE);
-      return;
-    }
-
-    if (pageNumber <= 0) {
-      JOptionPane.showMessageDialog(
-          this.slideViewComponent, Constants.INT_ERR, Constants.JAB_ERR, JOptionPane.ERROR_MESSAGE);
-      return;
-    }
-
-    this.setSlideNumber(pageNumber - 1);
-  }
-
   // Delete the presentation to be ready for the next one.
-  void clear() {
+  public void clear() {
     this.showList = new ArrayList<>();
     this.setSlideNumber(-1);
   }
