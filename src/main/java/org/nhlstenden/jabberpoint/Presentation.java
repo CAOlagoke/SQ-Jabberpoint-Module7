@@ -6,7 +6,7 @@ import org.nhlstenden.jabberpoint.slide.SlideViewerComponent;
 import java.util.ArrayList;
 
 /**
- * org.nhlstenden.jabberpoint.Presentation maintains the slides in the presentation.
+ * Presentation maintains the slides in the presentation.
  *
  * <p>There is only instance of this class.
  *
@@ -19,10 +19,10 @@ import java.util.ArrayList;
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
 public class Presentation {
-  private String showTitle; // title of the presentation
-  private ArrayList<Slide> showList = null; // an ArrayList with Slides
-  private int currentSlideNumber = 0; // the slidenummer of the current Slide
-  private SlideViewerComponent slideViewComponent = null; // the viewcomponent of the Slides
+  private String showTitle;
+  private ArrayList<Slide> showList = null;
+  private int currentSlideNumber = 0;
+  private SlideViewerComponent slideViewComponent;
 
   public Presentation() {
     this.slideViewComponent = null;

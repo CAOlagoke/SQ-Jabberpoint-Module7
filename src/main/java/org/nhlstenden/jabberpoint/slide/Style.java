@@ -3,7 +3,10 @@ package org.nhlstenden.jabberpoint.slide;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONException;
+import org.nhlstenden.jabberpoint.util.Constants;
+import org.nhlstenden.jabberpoint.util.ResourceAccessor;
 
+import javax.swing.*;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.*;
@@ -105,28 +108,13 @@ public class Style {
       }
 
     } catch (JSONException | IOException ex) {
-      ex.printStackTrace();
+      JOptionPane.showMessageDialog(null, Constants.IO_ERR + ex, Constants.JAB_ERR, JOptionPane.ERROR_MESSAGE);
     }
   }
 
   private static JSONArray readStyles() throws IOException, JSONException {
-    ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-    InputStream resourceStream = classLoader.getResourceAsStream("styles.json");
-
-    if (resourceStream == null) {
-      throw new FileNotFoundException("Resource file not found.");
-    }
-
-    BufferedReader streamReader =
-        new BufferedReader(new InputStreamReader(resourceStream, StandardCharsets.UTF_8));
-    StringBuilder responseStrBuilder = new StringBuilder();
-
-    String inputStr;
-    while ((inputStr = streamReader.readLine()) != null) {
-      responseStrBuilder.append(inputStr);
-    }
-
-    return new JSONArray(responseStrBuilder.toString());
+    String styles = ResourceAccessor.getResourceAsString("styles.json");
+    return new JSONArray(styles);
   }
 
   public String toString() {

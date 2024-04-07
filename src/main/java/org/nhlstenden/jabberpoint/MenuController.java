@@ -2,6 +2,7 @@ package org.nhlstenden.jabberpoint;
 
 import org.nhlstenden.jabberpoint.accessor.Accessor;
 import org.nhlstenden.jabberpoint.accessor.XMLAccessor;
+import org.nhlstenden.jabberpoint.util.Constants;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,17 +27,9 @@ public class MenuController extends MenuBar {
 
   private static final long serialVersionUID = 227L;
 
-  protected static final String TESTFILE = "test.xml";
-  protected static final String SAVEFILE = "dump.xml";
-
-  protected static final String IOEX = "IO Exception: ";
-  protected static final String LOADERR = "Load Error";
-  protected static final String SAVEERR = "Save Error";
-
   public MenuController(Frame frame, Presentation presentation) {
     this.parent = frame;
     this.presentation = presentation;
-    MenuItem menuItem;
 
     Menu fileMenu = new Menu("File");
     fileMenu.add(this.createMenuItem("Open", e -> this.openFile(), 'O'));
@@ -64,11 +57,11 @@ public class MenuController extends MenuBar {
     MenuController.this.presentation.clear();
     Accessor xmlAccessor = new XMLAccessor();
     try {
-      xmlAccessor.loadFile(MenuController.this.presentation, TESTFILE);
+      xmlAccessor.loadFile(MenuController.this.presentation, Constants.TEST_FILE);
       MenuController.this.presentation.setSlideNumber(0);
     } catch (IOException exc) {
       JOptionPane.showMessageDialog(
-          MenuController.this.parent, IOEX + exc, LOADERR, JOptionPane.ERROR_MESSAGE);
+          MenuController.this.parent, Constants.IO_ERR + exc, Constants.LOAD_ERR, JOptionPane.ERROR_MESSAGE);
     }
     MenuController.this.parent.repaint();
   }
@@ -81,10 +74,10 @@ public class MenuController extends MenuBar {
   private void saveFile() {
     Accessor xmlAccessor = new XMLAccessor();
     try {
-      xmlAccessor.saveFile(MenuController.this.presentation, SAVEFILE);
+      xmlAccessor.saveFile(MenuController.this.presentation, Constants.DEFAULT_SAVE_PATH);
     } catch (IOException exc) {
       JOptionPane.showMessageDialog(
-          MenuController.this.parent, IOEX + exc, SAVEERR, JOptionPane.ERROR_MESSAGE);
+          MenuController.this.parent, Constants.IO_ERR + exc, Constants.SAVE_ERR, JOptionPane.ERROR_MESSAGE);
     }
   }
 

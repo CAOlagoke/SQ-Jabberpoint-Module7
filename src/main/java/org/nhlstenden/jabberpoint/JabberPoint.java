@@ -6,6 +6,7 @@ import org.nhlstenden.jabberpoint.accessor.Accessor;
 import org.nhlstenden.jabberpoint.accessor.XMLAccessor;
 import org.nhlstenden.jabberpoint.slide.SlideViewerFrame;
 import org.nhlstenden.jabberpoint.slide.Style;
+import org.nhlstenden.jabberpoint.util.Constants;
 
 import java.io.IOException;
 
@@ -25,16 +26,13 @@ import java.io.IOException;
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
 public class JabberPoint {
-  protected static final String IOERR = "IO Error: ";
-  protected static final String JABERR = "Jabberpoint Error ";
-  protected static final String JABVERSION = "Jabberpoint 1.6 - OU version";
-
-  /** Het Main Programma */
   public static void main(String[] argv) {
-
     Style.createStyles();
+    Constants.loadConstants();
+
     Presentation presentation = new Presentation();
-    new SlideViewerFrame(JABVERSION, presentation);
+    new SlideViewerFrame(Constants.TITLE_FRAME, presentation);
+
     try {
       if (argv.length == 0) { // een demo presentatie
         Accessor.getDemoAccessor().loadFile(presentation, "");
@@ -43,7 +41,7 @@ public class JabberPoint {
       }
       presentation.setSlideNumber(0);
     } catch (IOException ex) {
-      JOptionPane.showMessageDialog(null, IOERR + ex, JABERR, JOptionPane.ERROR_MESSAGE);
+      JOptionPane.showMessageDialog(null, Constants.IO_ERR + ex, Constants.JAB_ERR, JOptionPane.ERROR_MESSAGE);
     }
   }
 }
