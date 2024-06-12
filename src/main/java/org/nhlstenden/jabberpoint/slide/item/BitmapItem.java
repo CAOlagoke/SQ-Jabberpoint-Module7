@@ -25,14 +25,13 @@ import java.io.IOException;
  * @version 1.5 2010/03/03 Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
-public class BitmapItem implements SlideItem {
+public class BitmapItem extends SlideItem {
 
   private BufferedImage bufferedImage;
   private final String imageName;
-  private final int level;
 
   public BitmapItem(int level, String imageName) {
-    this.level = level;
+    super(level);
     this.imageName = imageName;
 
     try {
@@ -40,10 +39,6 @@ public class BitmapItem implements SlideItem {
     } catch (IOException e) {
       System.err.println("File " + imageName + " not found");
     }
-  }
-
-  public int getLevel() {
-    return this.level;
   }
 
   public String getImageName() {

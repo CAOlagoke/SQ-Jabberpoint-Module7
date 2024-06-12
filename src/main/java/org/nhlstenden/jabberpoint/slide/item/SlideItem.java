@@ -21,11 +21,23 @@ import java.awt.image.ImageObserver;
  * @version 1.5 2010/03/03 Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
-public interface SlideItem {
+public abstract class SlideItem {
+
+  private int level;
+
+  public SlideItem(int level) {
+    this.level = level;
+  }
+
+  public int getLevel() {
+    return this.level;
+  }
 
   // Gets the bounding box
-  Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale, Style style);
+  public abstract Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale, Style style);
 
   // Draws the slideItem
-  void draw(int x, int y, float scale, Graphics g, Style style, ImageObserver observer);
+  public abstract void draw(int x, int y, float scale, Graphics g, Style style, ImageObserver observer);
+
+
 }

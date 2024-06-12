@@ -28,22 +28,17 @@ import org.nhlstenden.jabberpoint.slide.Style;
  * @version 1.5 2010/03/03 Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
-public class TextItem implements SlideItem {
+public class TextItem extends SlideItem {
 
   private final String text;
-  private final int level;
 
   public TextItem(int level, String text) {
-    this.level = level;
+    super(level);
     this.text = text;
   }
 
   public String getText() {
     return this.text;
-  }
-
-  public int getLevel() {
-    return this.level;
   }
 
   //
