@@ -55,19 +55,17 @@ public class TextItem extends SlideItem {
 
   // give the bounding box of the item
   public Rectangle getBoundingBox(
-      Graphics graphics, ImageObserver observer, float scale, Style style) {
+          Graphics graphics, ImageObserver observer, float scale, Style style) {
 
-    int boundingWidth = 0;
-    int boundingHeight = (int) (style.getLeading() * scale);
+    double boundingWidth = 0;
+    double boundingHeight = style.getLeading() * scale;
 
     List<TextLayout> layouts = this.getLayouts(graphics, style, scale);
-    Iterator<TextLayout> iterator = layouts.iterator();
 
-    while (iterator.hasNext()) {
-      TextLayout layout = iterator.next();
+    for (TextLayout layout : layouts) {
       Rectangle2D bounds = layout.getBounds();
       if (bounds.getWidth() > boundingWidth) {
-        boundingWidth = (int) bounds.getWidth();
+        boundingWidth = bounds.getWidth();
       }
       if (bounds.getHeight() > 0) {
         boundingHeight += bounds.getHeight();
@@ -76,11 +74,12 @@ public class TextItem extends SlideItem {
       boundingHeight += layout.getLeading() + layout.getDescent();
     }
 
-    int xCoordinate = (int) (style.getIndent() * scale);
+    double xCoordinate = style.getIndent() * scale;
     int yCoordinate = 0;
 
-    return new Rectangle(xCoordinate, yCoordinate, boundingWidth, boundingHeight);
+    return new Rectangle((int) xCoordinate, yCoordinate, (int) boundingWidth, (int) boundingHeight);
   }
+
 
   // draw the item
   public void draw(
@@ -102,14 +101,11 @@ public class TextItem extends SlideItem {
               xCoordinate + (int) (style.getIndent() * scale),
               yCoordinate + (int) (style.getLeading() * scale));
 
-      Iterator<TextLayout> iterator = layouts.iterator();
-
-      while (iterator.hasNext()) {
-        TextLayout layout = iterator.next();
-        pen.y += layout.getAscent();
-        layout.draw(graphics2D, pen.x, pen.y);
-        pen.y += layout.getDescent();
-      }
+        for (TextLayout layout : layouts) {
+            pen.y += (int) layout.getAscent();
+            layout.draw(graphics2D, pen.x, pen.y);
+            pen.y += (int) layout.getDescent();
+        }
     }
   }
 

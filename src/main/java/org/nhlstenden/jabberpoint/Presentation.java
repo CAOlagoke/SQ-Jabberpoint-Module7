@@ -1,7 +1,6 @@
 package org.nhlstenden.jabberpoint;
 
 import java.util.ArrayList;
-import javax.swing.*;
 import org.nhlstenden.jabberpoint.slide.Slide;
 import org.nhlstenden.jabberpoint.slide.SlideViewerComponent;
 

@@ -98,9 +98,7 @@ public class Slide {
 
     slideItem.draw(x, y, scale, g, style, view);
 
-    int increase = slideItem.getBoundingBox(g, view, scale, style).height;
-
-    return increase;
+    return slideItem.getBoundingBox(g, view, scale, style).height;
   }
 
   public String getText(SlideItem slideItem) {
@@ -114,13 +112,8 @@ public class Slide {
   }
 
   public int getLevel(SlideItem slideItem) {
-    int level = 0;
-    if (slideItem instanceof TextItem) {
-      level = ((TextItem) slideItem).getLevel();
-    } else if (slideItem instanceof BitmapItem) {
-      level = ((BitmapItem) slideItem).getLevel();
-    }
-    return level;
+
+    return slideItem.getLevel();
   }
 
   // Give the scale for drawing
