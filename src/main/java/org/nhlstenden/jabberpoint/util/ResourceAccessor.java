@@ -4,6 +4,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
 
+
 public class ResourceAccessor {
   public static ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 

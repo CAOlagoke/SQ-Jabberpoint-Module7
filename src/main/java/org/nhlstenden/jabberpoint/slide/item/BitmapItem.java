@@ -25,10 +25,11 @@ import java.io.IOException;
  * @version 1.5 2010/03/03 Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
+
 public class BitmapItem extends SlideItem {
 
-  private BufferedImage bufferedImage;
   private final String imageName;
+  private BufferedImage bufferedImage;
 
   public BitmapItem(int level, String imageName) {
     super(level);

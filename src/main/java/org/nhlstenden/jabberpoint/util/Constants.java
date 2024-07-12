@@ -6,7 +6,7 @@ import org.json.JSONObject;
 public class Constants {
   private static final String JSON_FILE = "constants.json";
 
-  public static String RESOURCE_LOADING_ERR =
+  public static final String RESOURCE_LOADING_ERR =
       "Error loading resource file. Please, run the built .jar file or build one with `mvn package`"
           + " to resolve the issue.";
 

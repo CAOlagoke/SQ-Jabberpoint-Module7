@@ -58,7 +58,7 @@ public class XMLAccessor extends Accessor {
   }
 
   public void loadFile(Presentation presentation, String filename) throws IOException {
-    int slideNumber, itemNumber, max = 0, maxItems = 0;
+    int slideNumber, itemNumber;
     try {
       DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
       Document document = builder.parse(new File(filename)); // Create a JDOM document
@@ -66,23 +66,21 @@ public class XMLAccessor extends Accessor {
       presentation.setTitle(this.getTitle(doc, SHOWTITLE));
 
       NodeList slides = doc.getElementsByTagName(SLIDE);
-      max = slides.getLength();
+      int max = slides.getLength();
       for (slideNumber = 0; slideNumber < max; slideNumber++) {
         Element xmlSlide = (Element) slides.item(slideNumber);
         Slide slide = new Slide(this.getTitle(xmlSlide, SLIDETITLE));
         presentation.append(slide);
 
         NodeList slideItems = xmlSlide.getElementsByTagName(ITEM);
-        maxItems = slideItems.getLength();
+        int maxItems = slideItems.getLength();
         for (itemNumber = 0; itemNumber < maxItems; itemNumber++) {
           Element item = (Element) slideItems.item(itemNumber);
           this.loadSlideItem(slide, item);
         }
       }
-    } catch (IOException iox) {
-      System.err.println(iox);
-    } catch (SAXException sax) {
-      System.err.println(sax.getMessage());
+    } catch (IOException|SAXException exception) {
+      System.err.println(exception.getMessage());
     } catch (ParserConfigurationException pcx) {
       System.err.println(PCE);
     }
@@ -91,10 +89,10 @@ public class XMLAccessor extends Accessor {
   protected void loadSlideItem(Slide slide, Element item) {
     int level = 1; // default
     NamedNodeMap attributes = item.getAttributes();
-    String leveltext = attributes.getNamedItem(LEVEL).getTextContent();
-    if (leveltext != null) {
+    String levelText = attributes.getNamedItem(LEVEL).getTextContent();
+    if (levelText != null) {
       try {
-        level = Integer.parseInt(leveltext);
+        level = Integer.parseInt(levelText);
       } catch (NumberFormatException x) {
         System.err.println(NFE);
       }
